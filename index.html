@@ -3,192 +3,219 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>POWER HANDS PLANTATION (PVT) LTD - Investor Registration & Survey</title>
+  <title>POWER HANDS PLANTATION (PVT) LTD - Investor Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', 'Noto Sans Sinhala', sans-serif; background-color: #f1f5f9; }
+    body { font-family: 'Inter', 'Noto Sans Sinhala', sans-serif; background-color: #ecfdf5; }
     .no-select { user-select: none; -webkit-user-select: none; }
     #pdf-render-wrapper { position: fixed; left: -9999px; top: 0; width: 794px; background: #fff; color: #0f172a; z-index: -1; }
   </style>
 </head>
-<body class="text-slate-800">
+<body class="text-slate-800 min-h-screen flex flex-col">
 
-  <!-- Header (5-Tap Trigger for Admin Panel) -->
-  <header id="app-header" class="bg-gradient-to-r from-blue-950 via-blue-900 to-slate-900 text-white shadow-lg no-select cursor-pointer">
-    <div class="max-w-4xl mx-auto px-4 py-6 text-center">
-      <div class="inline-block bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-semibold px-3 py-1 rounded-full mb-2">
-        OFFICIAL INVESTOR REGISTRATION & SURVEY PORTAL
+  <!-- Emerald Green Header with Plantation Vector Logo (5-Tap Trigger for Admin) -->
+  <header id="app-header" class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-green-800 text-white shadow-lg no-select cursor-pointer border-b-4 border-amber-400">
+    <div class="max-w-4xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left">
+      <!-- Custom Plantation Vector Logo -->
+      <div class="w-14 h-14 rounded-2xl bg-white/10 border-2 border-amber-400/80 flex items-center justify-center shrink-0 shadow-inner">
+        <svg viewBox="0 0 64 64" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 10C22 14 18 24 24 34C28 28 32 22 32 10Z" fill="#34D399"/>
+          <path d="M32 10C42 14 46 24 40 34C36 28 32 22 32 10Z" fill="#10B981"/>
+          <path d="M32 14V44" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+          <path d="M14 42C18 48 25 52 32 52C39 52 46 48 50 42" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M18 37C21 42 26 45 32 45C38 45 43 42 46 37" stroke="#A7F3D0" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
       </div>
-      <h1 class="text-2xl md:text-3xl font-bold tracking-wide text-white">POWER HANDS PLANTATION (PVT) LTD</h1>
-      <p class="text-blue-200 text-sm mt-1">ආයෝජක ගිවිසුම් විස්තර ලියාපදිංචිය සහ පාරිභෝගික සමීක්ෂණ පෝරමය</p>
-      <div id="sync-indicator" class="text-[11px] text-emerald-300 mt-1.5 hidden">● Connected & Synced with Cloud</div>
+      <div>
+        <div class="inline-block bg-amber-400/20 border border-amber-300/40 text-amber-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-1 tracking-wider">
+          OFFICIAL INVESTOR REGISTRATION & SURVEY PORTAL
+        </div>
+        <h1 class="text-xl md:text-2xl font-extrabold tracking-wide text-white leading-tight">POWER HANDS PLANTATION (PVT) LTD</h1>
+        <p class="text-emerald-200 text-xs mt-0.5">ආයෝජක ගිවිසුම් විස්තර ලියාපදිංචිය සහ පාරිභෝගික සමීක්ෂණ පෝරමය</p>
+        <div id="sync-indicator" class="text-[10px] text-amber-300 mt-1 hidden">● Live Cloud Connected</div>
+      </div>
     </div>
   </header>
 
-  <!-- Public Form View -->
-  <main id="public-view" class="max-w-4xl mx-auto px-4 py-6 space-y-6">
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6">
-      <h2 class="text-lg font-bold text-blue-950 border-b border-slate-200 pb-3 mb-4 flex items-center gap-2">
-        <span class="bg-blue-900 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">01</span>
-        ආයෝජකයාගේ මූලික විස්තර (Investor Details)
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <!-- Public No-Scroll Compact Home View -->
+  <main id="public-view" class="max-w-4xl w-full mx-auto px-4 py-5 space-y-4 flex-1">
+    
+    <!-- Top Compact Navigation Buttons (No Long Scrolling Needed) -->
+    <div class="grid grid-cols-3 gap-2.5">
+      <button type="button" onclick="switchPublicTab('investor')" id="tab-btn-investor" class="pub-tab-btn bg-emerald-800 text-white border-2 border-emerald-900 rounded-2xl p-3 text-center shadow-sm transition">
+        <div class="text-xs font-extrabold text-amber-300">පියවර 01</div>
+        <div class="text-xs sm:text-sm font-bold mt-0.5">ආයෝජක විස්තර</div>
+        <div class="text-[10px] opacity-80 hidden sm:block">Investor Details</div>
+      </button>
+      <button type="button" onclick="switchPublicTab('agreements')" id="tab-btn-agreements" class="pub-tab-btn bg-white text-emerald-950 border-2 border-emerald-200 hover:border-emerald-500 rounded-2xl p-3 text-center shadow-sm transition">
+        <div class="text-xs font-extrabold text-emerald-700">පියවර 02</div>
+        <div class="text-xs sm:text-sm font-bold mt-0.5">ගිවිසුම් විස්තර</div>
+        <div class="text-[10px] text-slate-500 hidden sm:block">Agreements</div>
+      </button>
+      <button type="button" onclick="switchPublicTab('survey')" id="tab-btn-survey" class="pub-tab-btn bg-white text-emerald-950 border-2 border-emerald-200 hover:border-emerald-500 rounded-2xl p-3 text-center shadow-sm transition">
+        <div class="text-xs font-extrabold text-emerald-700">පියවර 03</div>
+        <div class="text-xs sm:text-sm font-bold mt-0.5">ප්‍රශ්න 20 (Survey)</div>
+        <div class="text-[10px] text-slate-500 hidden sm:block">Common Issues</div>
+      </button>
+    </div>
+
+    <!-- Tab 1: Investor Details -->
+    <section id="pub-sec-investor" class="bg-white rounded-2xl shadow-sm border border-emerald-200 p-5">
+      <div class="flex items-center justify-between border-b border-emerald-100 pb-2.5 mb-4">
+        <h2 class="text-base font-bold text-emerald-950">01. ආයෝජකයාගේ මූලික විස්තර (Investor Details)</h2>
+        <button type="button" onclick="switchPublicTab('agreements')" class="bg-emerald-100 text-emerald-900 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-emerald-200">ඊළඟට (Next) →</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Full Name (සම්පූර්ණ නම) *</label>
-          <input type="text" id="fullName" placeholder="Ex: Mudiyanselage Anura Suranga" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
+          <input type="text" id="fullName" placeholder="Ex: Mudiyanselage Anura Suranga" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-emerald-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Name with Initials (මුලකුරු සමඟ නම) *</label>
-          <input type="text" id="initialsName" placeholder="Ex: M. A. Suranga" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
+          <input type="text" id="initialsName" placeholder="Ex: M. A. Suranga" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-emerald-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">NIC Number (ජාතික හැඳුනුම්පත් අංකය) *</label>
-          <input type="text" id="nic" placeholder="Ex: 198812345678 / 881234567V" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
+          <input type="text" id="nic" placeholder="Ex: 198812345678 / 881234567V" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-emerald-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Phone / WhatsApp Number (දුරකථන අංකය) *</label>
-          <input type="tel" id="phone" placeholder="Ex: 0771234567" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
+          <input type="tel" id="phone" placeholder="Ex: 0771234567" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-emerald-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Branch (ශාඛාව) *</label>
-          <input type="text" id="branch" placeholder="Ex: Ratnapura / Colombo / Kandy" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
+          <input type="text" id="branch" placeholder="Ex: Ratnapura / Colombo / Kandy" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-emerald-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Investment Group / Category (ආයෝජන කාණ්ඩය) *</label>
-          <select id="categorySelect" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-blue-950 outline-none focus:ring-2 focus:ring-blue-600"></select>
+          <select id="categorySelect" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-bold text-emerald-950 outline-none focus:ring-2 focus:ring-emerald-600"></select>
         </div>
       </div>
     </section>
 
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6">
-      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3 mb-4">
-        <h2 class="text-lg font-bold text-blue-950 flex items-center gap-2">
-          <span class="bg-blue-900 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">02</span>
-          ගිවිසුම් විස්තර (Agreement Details)
-        </h2>
-        <button type="button" onclick="addAgreementRow()" class="bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm">
-          + Add Another Agreement (තවත් ගිවිසුමක්)
-        </button>
+    <!-- Tab 2: Agreements Details -->
+    <section id="pub-sec-agreements" class="hidden bg-white rounded-2xl shadow-sm border border-emerald-200 p-5">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-100 pb-2.5 mb-4">
+        <h2 class="text-base font-bold text-emerald-950">02. ගිවිසුම් විස්තර (Agreement Details)</h2>
+        <div class="flex gap-2">
+          <button type="button" onclick="addAgreementRow()" class="bg-emerald-800 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">
+            + තවත් ගිවිසුමක් (Add)
+          </button>
+          <button type="button" onclick="switchPublicTab('survey')" class="bg-emerald-100 text-emerald-900 text-xs font-bold px-3 py-1.5 rounded-lg">ඊළඟට →</button>
+        </div>
       </div>
-      <div id="agreements-container" class="space-y-3"></div>
+      <div id="agreements-container" class="space-y-3 max-h-[340px] overflow-y-auto pr-1"></div>
     </section>
 
-    <section class="bg-gradient-to-r from-slate-900 to-blue-950 text-white rounded-2xl shadow-md p-5">
-      <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-3">
-        03. ඔබගේ ගිවිසුම්වල මුළු මූල්‍ය සාරාංශය (Total Financial Summary)
-      </h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-center">
-        <div class="bg-white/10 rounded-xl p-3 border border-white/10">
-          <div class="text-xs text-blue-200">Total Agreements (ගිවිසුම් ගණන)</div>
-          <div id="sum-count" class="text-xl font-bold text-white mt-1">1</div>
-        </div>
-        <div class="bg-white/10 rounded-xl p-3 border border-white/10">
-          <div class="text-xs text-blue-200">Total Invested Amount (මුළු මුදල)</div>
-          <div id="sum-amount" class="text-xl font-bold text-amber-400 mt-1">LKR 0.00</div>
-        </div>
-        <div class="col-span-2 md:col-span-1 bg-white/10 rounded-xl p-3 border border-white/10">
-          <div class="text-xs text-blue-200">Selected Category (කාණ්ඩය)</div>
-          <div id="sum-category" class="text-sm font-bold text-emerald-300 mt-1 truncate">-</div>
-        </div>
+    <!-- Tab 3: 20 Common Questions -->
+    <section id="pub-sec-survey" class="hidden bg-white rounded-2xl shadow-sm border border-emerald-200 p-5">
+      <div class="flex items-center justify-between border-b border-emerald-100 pb-2.5 mb-3">
+        <h2 class="text-base font-bold text-emerald-950">03. පොදු ගැටළු 20 (Common Issues Survey)</h2>
+        <span id="selected-q-badge" class="bg-amber-100 text-amber-900 text-xs font-bold px-2.5 py-1 rounded-full">0 Selected</span>
+      </div>
+      <div id="questions-container" class="space-y-2 max-h-[300px] overflow-y-auto pr-1"></div>
+      <div class="mt-3 pt-3 border-t border-slate-200">
+        <label class="block text-xs font-bold text-slate-800 mb-1">වෙනත් විශේෂ ගැටළුවක් ඇත්නම් මෙහි සඳහන් කරන්න (Other Remarks):</label>
+        <textarea id="customIssue" rows="2" placeholder="ඔබගේ ගැටළුව මෙහි ටයිප් කරන්න..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:ring-2 focus:ring-emerald-600"></textarea>
       </div>
     </section>
 
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6">
-      <h2 class="text-lg font-bold text-blue-950 border-b border-slate-200 pb-3 mb-2 flex items-center gap-2">
-        <span class="bg-amber-500 text-blue-950 w-7 h-7 rounded-full flex items-center justify-center text-sm font-extrabold">04</span>
-        පොදු ගැටළු සහ ආයතනික සමීක්ෂණ ප්‍රශ්නාවලිය (Common Issues & Survey)
-      </h2>
-      <p class="text-xs text-slate-600 mb-4">ඔබට බලපා ඇති පහත ගැටළු / කරුණු ඉදිරියෙන් සලකුණු (✓) කරන්න.</p>
-      <div id="questions-container" class="space-y-2.5 max-h-[480px] overflow-y-auto pr-1"></div>
-      <div class="mt-5 pt-4 border-t border-slate-200">
-        <label class="block text-xs font-bold text-slate-800 mb-1.5">වෙනත් විශේෂ ගැටළුවක් ඇත්නම් මෙහි සඳහන් කරන්න (Other Specific Issues):</label>
-        <textarea id="customIssue" rows="3" placeholder="ඔබගේ ගැටළුව සිංහලෙන් හෝ ඉංග්‍රීසියෙන් මෙහි ටයිප් කරන්න..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+    <!-- Always-Visible Horizontal Financial Summary & Submit Bar -->
+    <section class="bg-gradient-to-r from-emerald-950 to-green-900 text-white rounded-2xl shadow-md p-4 border border-emerald-700 space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-amber-300">ඔබගේ මූල්‍ය සාරාංශය (Total Financial Summary)</span>
+        <span id="sum-category" class="text-[11px] bg-white/15 px-2.5 py-0.5 rounded-full text-emerald-200 font-semibold truncate max-w-[200px]">-</span>
       </div>
-    </section>
-
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 text-center space-y-3">
-      <button type="button" onclick="handleFormSubmit()" id="submitBtn" class="w-full sm:w-auto bg-blue-900 hover:bg-blue-800 text-white font-bold py-3.5 px-8 rounded-xl shadow-md transition">
+      <div class="grid grid-cols-2 gap-3 text-center">
+        <div class="bg-white/10 rounded-xl p-2.5 border border-white/10">
+          <div class="text-[11px] text-emerald-200">ගිවිසුම් ගණන (Agreements)</div>
+          <div id="sum-count" class="text-lg font-extrabold text-white">1</div>
+        </div>
+        <div class="bg-white/10 rounded-xl p-2.5 border border-white/10">
+          <div class="text-[11px] text-emerald-200">මුළු ආයෝජිත මුදල (Total LKR)</div>
+          <div id="sum-amount" class="text-lg font-extrabold text-amber-400">LKR 0.00</div>
+        </div>
+      </div>
+      <button type="button" onclick="handleFormSubmit()" id="submitBtn" class="w-full bg-amber-400 hover:bg-amber-300 text-emerald-950 font-extrabold py-3 px-6 rounded-xl shadow-md transition text-sm">
         Submit, Download English PDF & Send WhatsApp
       </button>
-      <p class="text-[11px] text-slate-500">Submit කළ සැණින් ඔබගේ English PDF පෝරමය බාගත වී, දත්ත ආරක්ෂිතව ගබඩා වී WhatsApp වෙත යොමු වේ.</p>
     </section>
   </main>
 
-  <!-- Hidden Admin Panel (5-Tap + Password) -->
-  <section id="admin-view" class="hidden max-w-6xl mx-auto px-4 py-6 space-y-6">
-    <div class="bg-slate-900 text-white rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4 shadow-lg">
+  <!-- Hidden Admin Panel (5-Tap + Password) with No-Scroll Tab Buttons -->
+  <section id="admin-view" class="hidden max-w-6xl w-full mx-auto px-4 py-5 space-y-4 flex-1">
+    <div class="bg-emerald-950 text-white rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-lg border border-emerald-700">
       <div>
-        <span class="text-xs bg-amber-500 text-slate-950 font-bold px-2.5 py-0.5 rounded-full">GLOBAL CLOUD ADMIN PANEL</span>
-        <h2 class="text-xl font-bold mt-1">සමස්ත ආයෝජක දත්ත සහ පාලක පුවරුව (All Devices Sync)</h2>
+        <span class="text-[10px] bg-amber-400 text-emerald-950 font-extrabold px-2.5 py-0.5 rounded-full">GLOBAL CLOUD ADMIN PANEL</span>
+        <h2 class="text-lg font-bold mt-1">පාලක පුවරුව (Auto-Sync Enabled)</h2>
       </div>
       <div class="flex flex-wrap gap-2">
-        <button onclick="downloadMasterPDF()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow">
-          Download Master PDF
+        <button onclick="downloadMasterPDF()" class="bg-amber-400 hover:bg-amber-300 text-emerald-950 text-xs font-extrabold px-3.5 py-2 rounded-xl shadow">
+          Master PDF
         </button>
-        <button onclick="fetchAdminCloudData()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow">
+        <button onclick="fetchAdminCloudData(true)" class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow border border-emerald-500">
           Sync Live Data
         </button>
-        <button onclick="closeAdminPanel()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl">
-          Exit Admin
+        <button onclick="closeAdminPanel()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl">
+          Exit
         </button>
       </div>
     </div>
 
-    <!-- Global Settings (Syncs across ALL phones!) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
-        <h3 class="text-sm font-bold text-blue-950 border-b pb-2">Global Settings (සියලු දුරකථන සඳහා බලපාන සැකසුම්)</h3>
-        <div>
-          <label class="block text-xs font-bold text-slate-600 mb-1">Target WhatsApp Number (947XXXXXXXX):</label>
-          <div class="flex gap-2">
-            <input type="text" id="adminWhatsappInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" />
-            <button onclick="pushConfigToCloud()" class="bg-blue-900 text-white text-xs font-bold px-4 py-2 rounded-xl">Save to All</button>
+    <!-- Admin No-Scroll Navigation Buttons -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+      <button onclick="switchAdminTab('summary')" id="adm-btn-summary" class="adm-tab-btn bg-emerald-800 text-white border-2 border-emerald-950 rounded-xl p-2.5 text-xs font-bold shadow-sm">
+        01. සමස්ත සාරාංශය (Totals)
+      </button>
+      <button onclick="switchAdminTab('list')" id="adm-btn-list" class="adm-tab-btn bg-white text-emerald-950 border-2 border-emerald-200 rounded-xl p-2.5 text-xs font-bold shadow-sm">
+        02. ආයෝජක ලැයිස්තුව (List)
+      </button>
+      <button onclick="switchAdminTab('questions')" id="adm-btn-questions" class="adm-tab-btn bg-white text-emerald-950 border-2 border-emerald-200 rounded-xl p-2.5 text-xs font-bold shadow-sm">
+        03. ප්‍රශ්න ප්‍රතිචාර (Survey)
+      </button>
+      <button onclick="switchAdminTab('settings')" id="adm-btn-settings" class="adm-tab-btn bg-white text-emerald-950 border-2 border-emerald-200 rounded-xl p-2.5 text-xs font-bold shadow-sm">
+        04. සැකසුම් / කාණ්ඩ (Settings)
+      </button>
+    </div>
+
+    <!-- Admin Tab 1: Overall Grand Summary & Category Breakdown -->
+    <div id="adm-sec-summary" class="space-y-4">
+      <!-- Dedicated Overall Summary Highlight Card -->
+      <div class="bg-gradient-to-r from-emerald-900 to-green-800 text-white rounded-2xl p-5 shadow-md border border-emerald-600">
+        <div class="text-xs font-bold uppercase tracking-wider text-amber-300 mb-3">
+          සමස්ත ආයෝජක සහ මුදල් සාරාංශය (OVERALL SYSTEM GRAND SUMMARY)
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+          <div class="bg-white/10 rounded-xl p-3.5 border border-white/15">
+            <div class="text-xs text-emerald-200">ලියාපදිංචි ආයෝජකයින් (Registered Investors)</div>
+            <div id="admin-unique-investors" class="text-2xl font-extrabold text-white mt-1">0</div>
+          </div>
+          <div class="bg-white/10 rounded-xl p-3.5 border border-white/15">
+            <div class="text-xs text-emerald-200">මුළු ගිවිසුම් ගණන (Total Agreements)</div>
+            <div id="admin-total-agreements" class="text-2xl font-extrabold text-emerald-300 mt-1">0</div>
+          </div>
+          <div class="bg-white/10 rounded-xl p-3.5 border border-white/15">
+            <div class="text-xs text-emerald-200">මුළු ආයෝජිත මුදල (Grand Total LKR)</div>
+            <div id="admin-grand-total" class="text-2xl font-extrabold text-amber-400 mt-1">LKR 0.00</div>
           </div>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-600 mb-1">Change Admin Password (සියලු දුරකථන සඳහා මුරපදය):</label>
-          <div class="flex gap-2">
-            <input type="password" id="adminNewPassInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" placeholder="New Password" />
-            <button onclick="updateGlobalPassword()" class="bg-amber-600 text-white text-xs font-bold px-4 py-2 rounded-xl">Update</button>
-          </div>
-        </div>
       </div>
 
-      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
-        <h3 class="text-sm font-bold text-blue-950 border-b pb-2">Manage Investment Categories (සියලු දුරකථනවල කාණ්ඩ වෙනස් කිරීම)</h3>
-        <div class="flex gap-2">
-          <input type="text" id="newCategoryInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" placeholder="Ex: ලක්ෂ 200 ට වැඩි" />
-          <button onclick="addGlobalCategory()" class="bg-blue-900 text-white text-xs font-bold px-4 py-2 rounded-xl">+ Add & Sync</button>
-        </div>
-        <div id="admin-categories-list" class="flex flex-wrap gap-1.5 pt-2"></div>
+      <!-- Category-Wise Summary Grid -->
+      <div class="bg-white rounded-2xl p-5 border border-emerald-200 shadow-sm">
+        <h3 class="text-sm font-bold text-emerald-950 border-b border-emerald-100 pb-2.5 mb-3">කාණ්ඩ අනුව වෙන වෙනම මුදල් සාරාංශය (Category-Wise Breakdown)</h3>
+        <div id="category-summary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
       </div>
     </div>
 
-    <!-- Grand Total & Category Breakdown -->
-    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
-      <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3 mb-4">
-        <h3 class="text-base font-bold text-blue-950">කාණ්ඩ අනුව මුළු ආයෝජන සාරාංශය (Category Totals)</h3>
-        <div class="bg-blue-950 text-amber-400 px-4 py-2 rounded-xl text-sm font-bold">
-          Grand Total: <span id="admin-grand-total">LKR 0.00</span> (<span id="admin-total-agreements">0</span> Agreements)
-        </div>
-      </div>
-      <div id="category-summary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
-    </div>
-
-    <!-- Survey Questions Count -->
-    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
-      <h3 class="text-base font-bold text-blue-950 border-b pb-3 mb-4">ප්‍රශ්නාවලියේ ප්‍රතිචාර සාරාංශය (20 Common Issues)</h3>
-      <div id="admin-questions-summary" class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs"></div>
-    </div>
-
-    <!-- Registered Investors Table with Edit & Delete -->
-    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm overflow-x-auto">
-      <h3 class="text-base font-bold text-blue-950 border-b pb-3 mb-4">ලියාපදිංචි වූ සියලුම ආයෝජකයින් (Edit / Delete Syncs to Google Drive)</h3>
+    <!-- Admin Tab 2: Registered Investors List -->
+    <div id="adm-sec-list" class="hidden bg-white rounded-2xl p-5 border border-emerald-200 shadow-sm overflow-x-auto">
+      <h3 class="text-sm font-bold text-emerald-950 border-b border-emerald-100 pb-2.5 mb-3">ලියාපදිංචි වූ සියලුම ආයෝජකයින් (Edit / Delete Syncs to Google Drive)</h3>
       <table class="w-full text-left border-collapse text-xs">
         <thead>
-          <tr class="bg-slate-100 text-slate-700 border-b">
+          <tr class="bg-emerald-50 text-emerald-950 border-b border-emerald-200">
             <th class="p-2.5">Date / Ref</th>
             <th class="p-2.5">Full Name & Initials</th>
             <th class="p-2.5">NIC / Phone</th>
@@ -204,25 +231,61 @@
         <tbody id="admin-investors-tbody" class="divide-y divide-slate-200"></tbody>
       </table>
     </div>
+
+    <!-- Admin Tab 3: Survey Results -->
+    <div id="adm-sec-questions" class="hidden bg-white rounded-2xl p-5 border border-emerald-200 shadow-sm">
+      <h3 class="text-sm font-bold text-emerald-950 border-b border-emerald-100 pb-2.5 mb-3">ප්‍රශ්නාවලියේ ප්‍රතිචාර සාරාංශය (20 Common Issues Count)</h3>
+      <div id="admin-questions-summary" class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs"></div>
+    </div>
+
+    <!-- Admin Tab 4: Global Settings & Categories -->
+    <div id="adm-sec-settings" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-white rounded-2xl p-5 border border-emerald-200 shadow-sm space-y-3">
+        <h3 class="text-sm font-bold text-emerald-950 border-b pb-2">Global Settings (සියලු දුරකථන සඳහා බලපාන සැකසුම්)</h3>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Target WhatsApp Number (947XXXXXXXX):</label>
+          <div class="flex gap-2">
+            <input type="text" id="adminWhatsappInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" />
+            <button onclick="pushConfigToCloud()" class="bg-emerald-800 text-white text-xs font-bold px-4 py-2 rounded-xl">Save to All</button>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Change Admin Password (සියලු දුරකථන සඳහා මුරපදය):</label>
+          <div class="flex gap-2">
+            <input type="password" id="adminNewPassInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" placeholder="New Password" />
+            <button onclick="updateGlobalPassword()" class="bg-amber-600 text-white text-xs font-bold px-4 py-2 rounded-xl">Update</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-5 border border-emerald-200 shadow-sm space-y-3">
+        <h3 class="text-sm font-bold text-emerald-950 border-b pb-2">Manage Investment Categories (සියලු දුරකථනවල කාණ්ඩ වෙනස් කිරීම)</h3>
+        <div class="flex gap-2">
+          <input type="text" id="newCategoryInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" placeholder="Ex: ලක්ෂ 200 ට වැඩි" />
+          <button onclick="addGlobalCategory()" class="bg-emerald-800 text-white text-xs font-bold px-4 py-2 rounded-xl">+ Add & Sync</button>
+        </div>
+        <div id="admin-categories-list" class="flex flex-wrap gap-1.5 pt-2"></div>
+      </div>
+    </div>
   </section>
 
   <!-- Password Modal -->
-  <div id="password-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4">
-      <h3 class="text-lg font-bold text-blue-950">Admin Authentication</h3>
+  <div id="password-modal" class="hidden fixed inset-0 bg-emerald-950/75 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4 border border-emerald-200">
+      <h3 class="text-lg font-bold text-emerald-950">Admin Authentication</h3>
       <p class="text-xs text-slate-600">පාලක පුවරුවට පිවිසීම සඳහා මුරපදය ඇතුළත් කරන්න.</p>
-      <input type="password" id="adminLoginPass" placeholder="Enter Password" class="w-full px-3.5 py-2.5 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-600" />
+      <input type="password" id="adminLoginPass" placeholder="Enter Password" class="w-full px-3.5 py-2.5 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-emerald-600" />
       <div class="flex justify-end gap-2">
         <button onclick="document.getElementById('password-modal').classList.add('hidden')" class="px-4 py-2 text-xs font-bold text-slate-600">Cancel</button>
-        <button onclick="verifyAdminPassword()" class="bg-blue-900 text-white px-5 py-2 rounded-xl text-xs font-bold">Unlock</button>
+        <button onclick="verifyAdminPassword()" class="bg-emerald-800 text-white px-5 py-2 rounded-xl text-xs font-bold">Unlock</button>
       </div>
     </div>
   </div>
 
   <!-- Edit Record Modal -->
-  <div id="edit-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-3">
-      <h3 class="text-base font-bold text-blue-950 border-b pb-2">Edit Investor Record (Google Drive Update)</h3>
+  <div id="edit-modal" class="hidden fixed inset-0 bg-emerald-950/75 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-3 border border-emerald-200">
+      <h3 class="text-base font-bold text-emerald-950 border-b pb-2">Edit Investor Record (Google Drive Update)</h3>
       <input type="hidden" id="editRowIndex" />
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
         <div><label class="font-bold">Full Name</label><input type="text" id="editFullName" class="w-full p-2 border rounded-lg mt-1" /></div>
@@ -237,7 +300,7 @@
       </div>
       <div class="flex justify-end gap-2 pt-3 border-t">
         <button onclick="document.getElementById('edit-modal').classList.add('hidden')" class="px-4 py-2 text-xs font-bold text-slate-600">Cancel</button>
-        <button onclick="saveEditedRecord()" class="bg-blue-900 text-white px-5 py-2 rounded-xl text-xs font-bold">Save Changes to Cloud</button>
+        <button onclick="saveEditedRecord()" class="bg-emerald-800 text-white px-5 py-2 rounded-xl text-xs font-bold">Save Changes to Cloud</button>
       </div>
     </div>
   </div>
@@ -283,6 +346,31 @@
     let categories = [...DEFAULT_CATEGORIES];
     let records = [];
     let globalConfig = { whatsapp: "94784693750", password: "suranga2026" };
+    let autoSyncTimer = null;
+
+    function switchPublicTab(tab) {
+      ["investor", "agreements", "survey"].forEach(t => {
+        document.getElementById(`pub-sec-${t}`).classList.toggle("hidden", t !== tab);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (t === tab) {
+          btn.className = "pub-tab-btn bg-emerald-800 text-white border-2 border-emerald-950 rounded-2xl p-3 text-center shadow-sm transition";
+        } else {
+          btn.className = "pub-tab-btn bg-white text-emerald-950 border-2 border-emerald-200 hover:border-emerald-500 rounded-2xl p-3 text-center shadow-sm transition";
+        }
+      });
+    }
+
+    function switchAdminTab(tab) {
+      ["summary", "list", "questions", "settings"].forEach(t => {
+        document.getElementById(`adm-sec-${t}`).classList.toggle("hidden", t !== tab);
+        const btn = document.getElementById(`adm-btn-${t}`);
+        if (t === tab) {
+          btn.className = "adm-tab-btn bg-emerald-800 text-white border-2 border-emerald-950 rounded-xl p-2.5 text-xs font-bold shadow-sm";
+        } else {
+          btn.className = "adm-tab-btn bg-white text-emerald-950 border-2 border-emerald-200 rounded-xl p-2.5 text-xs font-bold shadow-sm";
+        }
+      });
+    }
 
     async function initApp() {
       renderCategoriesDropdown();
@@ -302,7 +390,7 @@
           if (data.whatsapp) globalConfig.whatsapp = data.whatsapp;
           document.getElementById("sync-indicator").classList.remove("hidden");
         }
-      } catch (e) { console.log("Syncing..."); }
+      } catch (e) {}
 
       let tapCount = 0, tapTimer = null;
       document.getElementById("app-header").addEventListener("click", () => {
@@ -329,19 +417,19 @@
       const container = document.getElementById("agreements-container");
       const index = container.children.length + 1;
       const row = document.createElement("div");
-      row.className = "agreement-row grid grid-cols-1 md:grid-cols-12 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 items-end";
+      row.className = "agreement-row grid grid-cols-1 md:grid-cols-12 gap-3 bg-emerald-50/60 p-3.5 rounded-xl border border-emerald-200 items-end";
       row.innerHTML = `
         <div class="md:col-span-4">
-          <label class="block text-[11px] font-bold text-slate-600 mb-1">Agreement No (${index}) *</label>
-          <input type="text" class="ag-no w-full px-3 py-2 rounded-lg border border-slate-300 text-sm" placeholder="Ex: AG-10452" />
+          <label class="block text-[11px] font-bold text-slate-700 mb-1">Agreement No (${index}) *</label>
+          <input type="text" class="ag-no w-full px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white" placeholder="Ex: AG-10452" />
         </div>
         <div class="md:col-span-4">
-          <label class="block text-[11px] font-bold text-slate-600 mb-1">Invested Amount (LKR) *</label>
-          <input type="number" oninput="updateSummary()" class="ag-amount w-full px-3 py-2 rounded-lg border border-slate-300 text-sm" placeholder="Ex: 500000" />
+          <label class="block text-[11px] font-bold text-slate-700 mb-1">Invested Amount (LKR) *</label>
+          <input type="number" oninput="updateSummary()" class="ag-amount w-full px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white" placeholder="Ex: 500000" />
         </div>
         <div class="md:col-span-3">
-          <label class="block text-[11px] font-bold text-slate-600 mb-1">Maturity Date *</label>
-          <input type="date" class="ag-maturity w-full px-3 py-2 rounded-lg border border-slate-300 text-sm" />
+          <label class="block text-[11px] font-bold text-slate-700 mb-1">Maturity Date *</label>
+          <input type="date" class="ag-maturity w-full px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white" />
         </div>
         <div class="md:col-span-1 text-right">
           ${index > 1 ? `<button type="button" onclick="this.closest('.agreement-row').remove(); updateSummary();" class="text-red-600 hover:bg-red-50 px-2.5 py-2 rounded-lg text-xs font-bold">✕</button>` : ''}
@@ -353,14 +441,19 @@
 
     function renderQuestions() {
       document.getElementById("questions-container").innerHTML = COMMON_QUESTIONS.map(q => `
-        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-blue-50/50 cursor-pointer transition">
-          <input type="checkbox" value="${q.id}" class="q-checkbox mt-1 w-4 h-4 accent-blue-900 rounded" />
+        <label class="flex items-start gap-3 p-2.5 rounded-xl border border-slate-200 hover:bg-emerald-50/60 cursor-pointer transition">
+          <input type="checkbox" value="${q.id}" onchange="updateSelectedQBadge()" class="q-checkbox mt-1 w-4 h-4 accent-emerald-800 rounded" />
           <div class="text-xs leading-relaxed">
             <div class="font-bold text-slate-800">${q.id}. ${q.si}</div>
             <div class="text-slate-500 mt-0.5">${q.en}</div>
           </div>
         </label>
       `).join("");
+    }
+
+    function updateSelectedQBadge() {
+      const count = document.querySelectorAll(".q-checkbox:checked").length;
+      document.getElementById("selected-q-badge").textContent = `${count} Selected`;
     }
 
     function updateSummary() {
@@ -381,7 +474,8 @@
       const customIssue = document.getElementById("customIssue").value.trim();
 
       if (!fullName || !initialsName || !nic || !phone || !branch) {
-        alert("කරුණාකර සියලුම අත්‍යවශ්‍ය තොරතුරු ඇතුළත් කරන්න.");
+        switchPublicTab("investor");
+        alert("කරුණාකර පියවර 01 හි සියලුම අත්‍යවශ්‍ය තොරතුරු ඇතුළත් කරන්න.");
         return;
       }
 
@@ -396,7 +490,8 @@
       });
 
       if (!validAg) {
-        alert("කරුණාකර සියලුම ගිවිසුම් අංක සහ මුදල් ප්‍රමාණයන් නිවැරදිව ඇතුළත් කරන්න.");
+        switchPublicTab("agreements");
+        alert("කරුණාකර පියවර 02 හි ගිවිසුම් අංක සහ මුදල් ප්‍රමාණයන් නිවැරදිව ඇතුළත් කරන්න.");
         return;
       }
 
@@ -415,7 +510,7 @@
 
       const btn = document.getElementById("submitBtn");
       btn.disabled = true;
-      btn.textContent = "Generating PDF & Saving to Google Drive...";
+      btn.textContent = "Generating English PDF & Saving to Google Drive...";
 
       const pdfBase64 = await generateIndividualEnglishPDF(recordObj);
 
@@ -426,7 +521,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ ...recordObj, pdfBase64 })
         });
-      } catch (e) { console.error("Drive error:", e); }
+      } catch (e) {}
 
       btn.disabled = false;
       btn.textContent = "Submit, Download English PDF & Send WhatsApp";
@@ -446,9 +541,9 @@
       const wrapper = document.getElementById("pdf-render-wrapper");
       wrapper.innerHTML = `
         <div style="width: 794px; padding: 36px 42px; background: #fff; color: #0f172a; font-family: 'Inter', sans-serif; box-sizing: border-box;">
-          <div style="border-bottom: 3px solid #1e3a8a; padding-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="border-bottom: 3px solid #065f46; padding-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <div style="font-size: 20px; font-weight: 800; color: #1e3a8a;">POWER HANDS PLANTATION (PVT) LTD</div>
+              <div style="font-size: 20px; font-weight: 800; color: #065f46;">POWER HANDS PLANTATION (PVT) LTD</div>
               <div style="font-size: 11px; font-weight: 700; color: #b45309; margin-top: 2px;">INVESTOR AGREEMENT DETAILS & SURVEY REGISTRATION FORM</div>
             </div>
             <div style="text-align: right; font-size: 11px; color: #334155;">
@@ -456,27 +551,27 @@
               <div><strong>Date:</strong> ${rec.date}</div>
             </div>
           </div>
-          <div style="margin-top: 18px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a; margin-bottom: 10px;">1. INVESTOR PERSONAL INFORMATION</div>
+          <div style="margin-top: 18px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 14px;">
+            <div style="font-size: 12px; font-weight: 700; color: #065f46; margin-bottom: 10px;">1. INVESTOR PERSONAL INFORMATION</div>
             <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
               <tr><td style="padding: 4px 0; width: 32%; color: #475569;"><strong>Full Name:</strong></td><td>${rec.fullName}</td></tr>
               <tr><td style="padding: 4px 0; color: #475569;"><strong>Name with Initials:</strong></td><td>${rec.initialsName}</td></tr>
               <tr><td style="padding: 4px 0; color: #475569;"><strong>NIC Number:</strong></td><td>${rec.nic}</td></tr>
               <tr><td style="padding: 4px 0; color: #475569;"><strong>Contact / WhatsApp:</strong></td><td>${rec.phone}</td></tr>
               <tr><td style="padding: 4px 0; color: #475569;"><strong>Branch:</strong></td><td>${rec.branch}</td></tr>
-              <tr><td style="padding: 4px 0; color: #475569;"><strong>Investment Group:</strong></td><td style="font-weight: 700; color: #1e3a8a;">${rec.category}</td></tr>
+              <tr><td style="padding: 4px 0; color: #475569;"><strong>Investment Group:</strong></td><td style="font-weight: 700; color: #065f46;">${rec.category}</td></tr>
             </table>
           </div>
           <div style="margin-top: 16px;">
-            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a; margin-bottom: 8px;">2. REGISTERED AGREEMENT DETAILS</div>
+            <div style="font-size: 12px; font-weight: 700; color: #065f46; margin-bottom: 8px;">2. REGISTERED AGREEMENT DETAILS</div>
             <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
               <thead>
-                <tr style="background: #1e3a8a; color: #fff;">
-                  <th style="padding: 8px; text-align: left; border: 1px solid #1e3a8a;">#</th>
-                  <th style="padding: 8px; text-align: left; border: 1px solid #1e3a8a;">Agreement No</th>
-                  <th style="padding: 8px; text-align: left; border: 1px solid #1e3a8a;">Branch</th>
-                  <th style="padding: 8px; text-align: left; border: 1px solid #1e3a8a;">Maturity Date</th>
-                  <th style="padding: 8px; text-align: right; border: 1px solid #1e3a8a;">Invested Amount (LKR)</th>
+                <tr style="background: #065f46; color: #fff;">
+                  <th style="padding: 8px; text-align: left; border: 1px solid #065f46;">#</th>
+                  <th style="padding: 8px; text-align: left; border: 1px solid #065f46;">Agreement No</th>
+                  <th style="padding: 8px; text-align: left; border: 1px solid #065f46;">Branch</th>
+                  <th style="padding: 8px; text-align: left; border: 1px solid #065f46;">Maturity Date</th>
+                  <th style="padding: 8px; text-align: right; border: 1px solid #065f46;">Invested Amount (LKR)</th>
                 </tr>
               </thead>
               <tbody>
@@ -489,15 +584,15 @@
                     <td style="padding: 7px 8px; border: 1px solid #cbd5e1; text-align: right; font-weight: 600;">${ag.amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
                   </tr>
                 `).join("")}
-                <tr style="background: #f1f5f9; font-weight: 800;">
+                <tr style="background: #ecfdf5; font-weight: 800;">
                   <td colspan="4" style="padding: 8px; border: 1px solid #cbd5e1; text-align: right;">TOTAL INVESTED AMOUNT:</td>
-                  <td style="padding: 8px; border: 1px solid #cbd5e1; text-align: right; color: #1e3a8a;">LKR ${rec.totalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
+                  <td style="padding: 8px; border: 1px solid #cbd5e1; text-align: right; color: #065f46;">LKR ${rec.totalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div style="margin-top: 16px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px;">
-            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a; margin-bottom: 6px;">3. REPORTED SURVEY ISSUES</div>
+            <div style="font-size: 12px; font-weight: 700; color: #065f46; margin-bottom: 6px;">3. REPORTED SURVEY ISSUES</div>
             <div style="font-size: 11px; color: #334155; line-height: 1.5;">
               ${rec.selectedQIds.length > 0 ? rec.selectedQIds.map(id => `<div>• [Q${id}] ${COMMON_QUESTIONS.find(item => item.id === id).en}</div>`).join("") : "<div>No specific common issues ticked.</div>"}
               ${rec.customIssue !== "None" ? `<div style="margin-top: 6px;"><strong>Additional Remarks:</strong> ${rec.customIssue}</div>` : ""}
@@ -540,27 +635,33 @@
         document.getElementById("adminWhatsappInput").value = globalConfig.whatsapp;
         renderCategoriesDropdown();
         renderAdminDashboard();
+        // Auto-sync every 15 seconds while Admin Panel is open
+        clearInterval(autoSyncTimer);
+        autoSyncTimer = setInterval(() => fetchAdminCloudData(false), 15000);
       } else {
         alert("වැරදි මුරපදයකි! (Incorrect Password)");
       }
     }
 
     function closeAdminPanel() {
+      clearInterval(autoSyncTimer);
       document.getElementById("admin-view").classList.add("hidden");
       document.getElementById("public-view").classList.remove("hidden");
     }
 
-    async function fetchAdminCloudData() {
-      const res = await fetch(`${GOOGLE_SCRIPT_URL}?mode=admin`);
-      const data = await res.json();
-      if (data.status === "ok") {
-        globalConfig = data.config;
-        categories = data.config.categories;
-        records = data.records;
-        renderCategoriesDropdown();
-        renderAdminDashboard();
-        alert("සියලුම දත්ත Google Drive වෙතින් යාවත්කාලීන විය!");
-      }
+    async function fetchAdminCloudData(showAlert = true) {
+      try {
+        const res = await fetch(`${GOOGLE_SCRIPT_URL}?mode=admin`);
+        const data = await res.json();
+        if (data.status === "ok") {
+          globalConfig = data.config;
+          categories = data.config.categories;
+          records = data.records;
+          renderCategoriesDropdown();
+          renderAdminDashboard();
+          if (showAlert) alert("සියලුම දත්ත Google Drive වෙතින් යාවත්කාලීන විය!");
+        }
+      } catch (e) {}
     }
 
     async function pushConfigToCloud() {
@@ -643,7 +744,7 @@
         body: JSON.stringify(payload)
       });
       document.getElementById("edit-modal").classList.add("hidden");
-      setTimeout(fetchAdminCloudData, 1200);
+      setTimeout(() => fetchAdminCloudData(false), 1200);
     }
 
     async function deleteCloudRecord(rowIndex) {
@@ -652,28 +753,32 @@
         method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "deleteRecord", rowIndex })
       });
-      setTimeout(fetchAdminCloudData, 1200);
+      setTimeout(() => fetchAdminCloudData(false), 1200);
     }
 
     function renderAdminDashboard() {
       document.getElementById("admin-categories-list").innerHTML = categories.map((c, idx) =>
-        `<span class="bg-slate-100 border border-slate-300 px-2.5 py-1 rounded-lg text-[11px] font-semibold flex items-center gap-1.5">
+        `<span class="bg-emerald-50 border border-emerald-300 px-2.5 py-1 rounded-lg text-[11px] font-semibold flex items-center gap-1.5">
           ${c} <button onclick="removeGlobalCategory(${idx})" class="text-red-600 font-bold">✕</button>
         </span>`
       ).join("");
 
+      // Calculate Unique Investors (by NIC), Total Agreements, and Grand Total LKR
+      const uniqueNics = new Set(records.map(r => String(r.nic || "").trim().toUpperCase()).filter(Boolean));
       const grandTotal = records.reduce((s, r) => s + (Number(r.amount) || 0), 0);
-      document.getElementById("admin-grand-total").textContent = "LKR " + grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2 });
+
+      document.getElementById("admin-unique-investors").textContent = uniqueNics.size;
       document.getElementById("admin-total-agreements").textContent = records.length;
+      document.getElementById("admin-grand-total").textContent = "LKR " + grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2 });
 
       document.getElementById("category-summary-grid").innerHTML = categories.map(cat => {
         const catItems = records.filter(r => r.category === cat);
         const catSum = catItems.reduce((s, r) => s + (Number(r.amount) || 0), 0);
         return `
-          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
-            <div class="text-xs font-bold text-blue-950 truncate" title="${cat}">${cat}</div>
+          <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-3.5">
+            <div class="text-xs font-bold text-emerald-950 truncate" title="${cat}">${cat}</div>
             <div class="text-lg font-extrabold text-slate-900 mt-1">LKR ${catSum.toLocaleString("en-US")}</div>
-            <div class="text-[11px] text-slate-500 mt-0.5">${catItems.length} Agreements</div>
+            <div class="text-[11px] text-emerald-700 font-semibold mt-0.5">${catItems.length} Agreements</div>
           </div>
         `;
       }).join("");
@@ -681,24 +786,24 @@
       document.getElementById("admin-questions-summary").innerHTML = COMMON_QUESTIONS.map(q => {
         const count = records.filter(r => Array.isArray(r.selectedQIds) && r.selectedQIds.includes(q.id)).length;
         return `
-          <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+          <div class="flex items-center justify-between bg-emerald-50/60 p-2.5 rounded-lg border border-emerald-200">
             <span class="pr-2 font-medium text-slate-700"><strong>Q${q.id}.</strong> ${q.si}</span>
-            <span class="bg-blue-900 text-white font-bold px-2.5 py-1 rounded-full shrink-0">${count}</span>
+            <span class="bg-emerald-800 text-white font-bold px-2.5 py-1 rounded-full shrink-0">${count}</span>
           </div>
         `;
       }).join("");
 
       document.getElementById("admin-investors-tbody").innerHTML = records.map((r, idx) => `
-        <tr class="hover:bg-slate-50">
-          <td class="p-2.5"><div>${r.date}</div><div class="font-bold text-blue-900">${r.id}</div></td>
+        <tr class="hover:bg-emerald-50/40">
+          <td class="p-2.5"><div>${r.date}</div><div class="font-bold text-emerald-900">${r.id}</div></td>
           <td class="p-2.5"><div class="font-bold">${r.fullName}</div><div class="text-slate-500">${r.initialsName}</div></td>
           <td class="p-2.5"><div>${r.nic}</div><div class="text-slate-500">${r.phone}</div></td>
           <td class="p-2.5">${r.branch}</td>
-          <td class="p-2.5 font-semibold text-blue-900">${r.category}</td>
+          <td class="p-2.5 font-semibold text-emerald-900">${r.category}</td>
           <td class="p-2.5 font-bold">${r.agNo}</td>
           <td class="p-2.5 text-right font-bold">LKR ${(Number(r.amount) || 0).toLocaleString()}</td>
           <td class="p-2.5">${r.maturityDate}</td>
-          <td class="p-2.5">${r.pdfUrl && r.pdfUrl.startsWith("http") ? `<a href="${r.pdfUrl}" target="_blank" class="text-blue-600 underline font-bold">Open PDF</a>` : "Saved"}</td>
+          <td class="p-2.5">${r.pdfUrl && r.pdfUrl.startsWith("http") ? `<a href="${r.pdfUrl}" target="_blank" class="text-emerald-700 underline font-bold">Open PDF</a>` : "Saved"}</td>
           <td class="p-2.5 text-center space-x-1">
             <button onclick="openEditModal(${idx})" class="bg-amber-500 text-white px-2 py-1 rounded font-bold">Edit</button>
             <button onclick="deleteCloudRecord(${r.rowIndex})" class="bg-red-600 text-white px-2 py-1 rounded font-bold">Del</button>
@@ -709,6 +814,7 @@
 
     async function downloadMasterPDF() {
       window.scrollTo(0, 0);
+      const uniqueNics = new Set(records.map(r => String(r.nic || "").trim().toUpperCase()).filter(Boolean));
       const grandTotal = records.reduce((s, r) => s + (Number(r.amount) || 0), 0);
       const wrapper = document.getElementById("pdf-render-wrapper");
       const catSummaryRows = categories.map(cat => {
@@ -731,27 +837,27 @@
 
       wrapper.innerHTML = `
         <div style="width:794px;padding:30px 36px;background:#fff;color:#0f172a;font-family:'Inter','Noto Sans Sinhala',sans-serif;box-sizing:border-box;">
-          <div style="border-bottom:3px solid #1e3a8a;padding-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="border-bottom:3px solid #065f46;padding-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
             <div>
-              <div style="font-size:18px;font-weight:800;color:#1e3a8a;">POWER HANDS PLANTATION (PVT) LTD</div>
+              <div style="font-size:18px;font-weight:800;color:#065f46;">POWER HANDS PLANTATION (PVT) LTD</div>
               <div style="font-size:11px;font-weight:700;color:#b45309;">MASTER INVESTOR REGISTRATION & FINANCIAL SUMMARY REPORT</div>
             </div>
             <div style="text-align:right;font-size:10px;color:#334155;">
               <div><strong>Date:</strong> ${new Date().toLocaleDateString()}</div>
-              <div><strong>Total Agreements:</strong> ${records.length}</div>
+              <div><strong>Registered Investors:</strong> ${uniqueNics.size} | <strong>Agreements:</strong> ${records.length}</div>
             </div>
           </div>
           <div style="margin-top:14px;">
-            <div style="font-size:11px;font-weight:800;color:#1e3a8a;margin-bottom:6px;">1. CATEGORY-WISE FINANCIAL SUMMARY</div>
+            <div style="font-size:11px;font-weight:800;color:#065f46;margin-bottom:6px;">1. CATEGORY-WISE FINANCIAL SUMMARY</div>
             <table style="width:100%;border-collapse:collapse;font-size:10.5px;">
-              <thead><tr style="background:#1e3a8a;color:#fff;"><th style="padding:6px 8px;text-align:left;border:1px solid #1e3a8a;">Investment Category</th><th style="padding:6px 8px;text-align:center;border:1px solid #1e3a8a;">Agreements</th><th style="padding:6px 8px;text-align:right;border:1px solid #1e3a8a;">Total Amount (LKR)</th></tr></thead>
-              <tbody>${catSummaryRows}<tr style="background:#fef3c7;font-weight:800;"><td style="padding:7px 8px;border:1px solid #cbd5e1;">GRAND TOTAL INVESTMENT</td><td style="padding:7px 8px;border:1px solid #cbd5e1;text-align:center;">${records.length}</td><td style="padding:7px 8px;border:1px solid #cbd5e1;text-align:right;color:#1e3a8a;">LKR ${grandTotal.toLocaleString("en-US",{minimumFractionDigits:2})}</td></tr></tbody>
+              <thead><tr style="background:#065f46;color:#fff;"><th style="padding:6px 8px;text-align:left;border:1px solid #065f46;">Investment Category</th><th style="padding:6px 8px;text-align:center;border:1px solid #065f46;">Agreements</th><th style="padding:6px 8px;text-align:right;border:1px solid #065f46;">Total Amount (LKR)</th></tr></thead>
+              <tbody>${catSummaryRows}<tr style="background:#fef3c7;font-weight:800;"><td style="padding:7px 8px;border:1px solid #cbd5e1;">GRAND TOTAL INVESTMENT (${uniqueNics.size} Investors)</td><td style="padding:7px 8px;border:1px solid #cbd5e1;text-align:center;">${records.length}</td><td style="padding:7px 8px;border:1px solid #cbd5e1;text-align:right;color:#065f46;">LKR ${grandTotal.toLocaleString("en-US",{minimumFractionDigits:2})}</td></tr></tbody>
             </table>
           </div>
           <div style="margin-top:18px;">
-            <div style="font-size:11px;font-weight:800;color:#1e3a8a;margin-bottom:6px;">2. REGISTERED INVESTORS & AGREEMENTS LIST</div>
+            <div style="font-size:11px;font-weight:800;color:#065f46;margin-bottom:6px;">2. REGISTERED INVESTORS & AGREEMENTS LIST</div>
             <table style="width:100%;border-collapse:collapse;font-size:9.5px;">
-              <thead><tr style="background:#0f172a;color:#fff;"><th style="padding:6px;border:1px solid #0f172a;">#</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">Investor Details</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">Branch</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">Category</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">AG No</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">Maturity</th><th style="padding:6px;text-align:right;border:1px solid #0f172a;">Amount (LKR)</th></tr></thead>
+              <thead><tr style="background:#064e3b;color:#fff;"><th style="padding:6px;border:1px solid #064e3b;">#</th><th style="padding:6px;text-align:left;border:1px solid #064e3b;">Investor Details</th><th style="padding:6px;text-align:left;border:1px solid #064e3b;">Branch</th><th style="padding:6px;text-align:left;border:1px solid #064e3b;">Category</th><th style="padding:6px;text-align:left;border:1px solid #064e3b;">AG No</th><th style="padding:6px;text-align:left;border:1px solid #064e3b;">Maturity</th><th style="padding:6px;text-align:right;border:1px solid #064e3b;">Amount (LKR)</th></tr></thead>
               <tbody>${investorRows}</tbody>
             </table>
           </div>
