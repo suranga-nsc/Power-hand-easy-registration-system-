@@ -10,21 +10,12 @@
   <style>
     body { font-family: 'Inter', 'Noto Sans Sinhala', sans-serif; background-color: #f1f5f9; }
     .no-select { user-select: none; -webkit-user-select: none; }
-    /* Off-screen A4 container for clean PDF generation on both PC and Mobile */
-    #pdf-render-wrapper {
-      position: fixed;
-      left: -9999px;
-      top: 0;
-      width: 794px;
-      background: #ffffff;
-      color: #0f172a;
-      z-index: -1;
-    }
+    #pdf-render-wrapper { position: fixed; left: -9999px; top: 0; width: 794px; background: #fff; color: #0f172a; z-index: -1; }
   </style>
 </head>
 <body class="text-slate-800">
 
-  <!-- Header (5-Tap Trigger for Hidden Admin Panel) -->
+  <!-- Header (5-Tap Trigger for Admin Panel) -->
   <header id="app-header" class="bg-gradient-to-r from-blue-950 via-blue-900 to-slate-900 text-white shadow-lg no-select cursor-pointer">
     <div class="max-w-4xl mx-auto px-4 py-6 text-center">
       <div class="inline-block bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-semibold px-3 py-1 rounded-full mb-2">
@@ -32,67 +23,58 @@
       </div>
       <h1 class="text-2xl md:text-3xl font-bold tracking-wide text-white">POWER HANDS PLANTATION (PVT) LTD</h1>
       <p class="text-blue-200 text-sm mt-1">ආයෝජක ගිවිසුම් විස්තර ලියාපදිංචිය සහ පාරිභෝගික සමීක්ෂණ පෝරමය</p>
+      <div id="sync-indicator" class="text-[11px] text-emerald-300 mt-1.5 hidden">● Connected & Synced with Cloud</div>
     </div>
   </header>
 
-  <!-- Main Public Survey & Registration Form -->
+  <!-- Public Form View -->
   <main id="public-view" class="max-w-4xl mx-auto px-4 py-6 space-y-6">
-    
-    <!-- Section 1: Investor Personal Details -->
     <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6">
       <h2 class="text-lg font-bold text-blue-950 border-b border-slate-200 pb-3 mb-4 flex items-center gap-2">
         <span class="bg-blue-900 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">01</span>
         ආයෝජකයාගේ මූලික විස්තර (Investor Details)
       </h2>
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Full Name (සම්පූර්ණ නම) *</label>
-          <input type="text" id="fullName" placeholder="Ex: Mudiyanselage Anura Suranga" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none text-sm" />
+          <input type="text" id="fullName" placeholder="Ex: Mudiyanselage Anura Suranga" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Name with Initials (මුලකුරු සමඟ නම) *</label>
-          <input type="text" id="initialsName" placeholder="Ex: M. A. Suranga" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none text-sm" />
+          <input type="text" id="initialsName" placeholder="Ex: M. A. Suranga" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">NIC Number (ජාතික හැඳුනුම්පත් අංකය) *</label>
-          <input type="text" id="nic" placeholder="Ex: 198812345678 / 881234567V" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none text-sm" />
+          <input type="text" id="nic" placeholder="Ex: 198812345678 / 881234567V" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Phone / WhatsApp Number (දුරකථන අංකය) *</label>
-          <input type="tel" id="phone" placeholder="Ex: 0771234567" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none text-sm" />
+          <input type="tel" id="phone" placeholder="Ex: 0771234567" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Branch (ශාඛාව) *</label>
-          <input type="text" id="branch" placeholder="Ex: Ratnapura / Colombo / Kandy" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none text-sm" />
+          <input type="text" id="branch" placeholder="Ex: Ratnapura / Colombo / Kandy" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Investment Group / Category (ආයෝජන කාණ්ඩය) *</label>
-          <select id="categorySelect" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none text-sm font-semibold text-blue-950">
-            <!-- Populated dynamically -->
-          </select>
+          <select id="categorySelect" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-blue-950 outline-none focus:ring-2 focus:ring-blue-600"></select>
         </div>
       </div>
     </section>
 
-    <!-- Section 2: Agreement Details -->
     <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6">
       <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3 mb-4">
         <h2 class="text-lg font-bold text-blue-950 flex items-center gap-2">
           <span class="bg-blue-900 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">02</span>
           ගිවිසුම් විස්තර (Agreement Details)
         </h2>
-        <button type="button" onclick="addAgreementRow()" class="bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition shadow-sm">
+        <button type="button" onclick="addAgreementRow()" class="bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm">
           + Add Another Agreement (තවත් ගිවිසුමක්)
         </button>
       </div>
-
-      <div id="agreements-container" class="space-y-3">
-        <!-- Dynamic Agreement Rows -->
-      </div>
+      <div id="agreements-container" class="space-y-3"></div>
     </section>
 
-    <!-- Section 3: Horizontal Financial Summary -->
     <section class="bg-gradient-to-r from-slate-900 to-blue-950 text-white rounded-2xl shadow-md p-5">
       <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-3">
         03. ඔබගේ ගිවිසුම්වල මුළු මූල්‍ය සාරාංශය (Total Financial Summary)
@@ -108,126 +90,102 @@
         </div>
         <div class="col-span-2 md:col-span-1 bg-white/10 rounded-xl p-3 border border-white/10">
           <div class="text-xs text-blue-200">Selected Category (කාණ්ඩය)</div>
-          <div id="sum-category" class="text-sm font-bold text-emerald-300 mt-1 truncate">ලක්ෂ 1 - 05 අතර</div>
+          <div id="sum-category" class="text-sm font-bold text-emerald-300 mt-1 truncate">-</div>
         </div>
       </div>
     </section>
 
-    <!-- Section 4: 20 Common Questions & Custom Issue (Directly Visible) -->
     <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6">
       <h2 class="text-lg font-bold text-blue-950 border-b border-slate-200 pb-3 mb-2 flex items-center gap-2">
         <span class="bg-amber-500 text-blue-950 w-7 h-7 rounded-full flex items-center justify-center text-sm font-extrabold">04</span>
         පොදු ගැටළු සහ ආයතනික සමීක්ෂණ ප්‍රශ්නාවලිය (Common Issues & Survey)
       </h2>
-      <p class="text-xs text-slate-600 mb-4">
-        ඔබට බලපා ඇති පහත ගැටළු / කරුණු ඉදිරියෙන් සලකුණු (✓) කරන්න. (Tick all issues applicable to your agreements)
-      </p>
-
-      <div id="questions-container" class="space-y-2.5 max-h-[480px] overflow-y-auto pr-1">
-        <!-- 20 Bilingual Questions Rendered Here -->
-      </div>
-
+      <p class="text-xs text-slate-600 mb-4">ඔබට බලපා ඇති පහත ගැටළු / කරුණු ඉදිරියෙන් සලකුණු (✓) කරන්න.</p>
+      <div id="questions-container" class="space-y-2.5 max-h-[480px] overflow-y-auto pr-1"></div>
       <div class="mt-5 pt-4 border-t border-slate-200">
-        <label class="block text-xs font-bold text-slate-800 mb-1.5">
-          ඉහත සඳහන් නොවූ වෙනත් විශේෂ ගැටළුවක් ඇත්නම් මෙහි සඳහන් කරන්න (Other Specific Issues / Remarks):
-        </label>
-        <textarea id="customIssue" rows="3" placeholder="ඔබගේ ගැටළුව සිංහලෙන් හෝ ඉංග්‍රීසියෙන් මෙහි ටයිප් කරන්න..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 outline-none text-sm"></textarea>
+        <label class="block text-xs font-bold text-slate-800 mb-1.5">වෙනත් විශේෂ ගැටළුවක් ඇත්නම් මෙහි සඳහන් කරන්න (Other Specific Issues):</label>
+        <textarea id="customIssue" rows="3" placeholder="ඔබගේ ගැටළුව සිංහලෙන් හෝ ඉංග්‍රීසියෙන් මෙහි ටයිප් කරන්න..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-blue-600"></textarea>
       </div>
     </section>
 
-    <!-- Submit & Export Actions -->
     <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 text-center space-y-3">
-      <div id="status-banner" class="hidden text-sm font-semibold p-3 rounded-xl"></div>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <button type="button" onclick="handleFormSubmit()" id="submitBtn" class="flex-1 bg-blue-900 hover:bg-blue-800 text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-2">
-          <span>Submit, Download English PDF & Send WhatsApp</span>
-        </button>
-      </div>
-      <p class="text-[11px] text-slate-500">
-        Submit කළ සැණින් ඔබගේ පෞද්ගලික English PDF පෝරමය බාගත වී, දත්ත ආරක්ෂිතව ගබඩා වී WhatsApp වෙත යොමු වේ.
-      </p>
+      <button type="button" onclick="handleFormSubmit()" id="submitBtn" class="w-full sm:w-auto bg-blue-900 hover:bg-blue-800 text-white font-bold py-3.5 px-8 rounded-xl shadow-md transition">
+        Submit, Download English PDF & Send WhatsApp
+      </button>
+      <p class="text-[11px] text-slate-500">Submit කළ සැණින් ඔබගේ English PDF පෝරමය බාගත වී, දත්ත ආරක්ෂිතව ගබඩා වී WhatsApp වෙත යොමු වේ.</p>
     </section>
   </main>
 
-  <!-- Hidden Admin Panel (Opens after 5 taps on Header + Password) -->
+  <!-- Hidden Admin Panel (5-Tap + Password) -->
   <section id="admin-view" class="hidden max-w-6xl mx-auto px-4 py-6 space-y-6">
     <div class="bg-slate-900 text-white rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4 shadow-lg">
       <div>
-        <span class="text-xs bg-amber-500 text-slate-950 font-bold px-2.5 py-0.5 rounded-full">ADMIN CONTROL PANEL</span>
-        <h2 class="text-xl font-bold mt-1">සමස්ත ආයෝජක දත්ත සහ මූල්‍ය සාරාංශය</h2>
+        <span class="text-xs bg-amber-500 text-slate-950 font-bold px-2.5 py-0.5 rounded-full">GLOBAL CLOUD ADMIN PANEL</span>
+        <h2 class="text-xl font-bold mt-1">සමස්ත ආයෝජක දත්ත සහ පාලක පුවරුව (All Devices Sync)</h2>
       </div>
       <div class="flex flex-wrap gap-2">
-        <button onclick="downloadMasterPDF()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition">
-          Download Master PDF (සියලු දෙනාගේ PDF වාර්තාව)
+        <button onclick="downloadMasterPDF()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow">
+          Download Master PDF
         </button>
-        <button onclick="syncFromGoogleDrive()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition">
-          Refresh Live Data
+        <button onclick="fetchAdminCloudData()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow">
+          Sync Live Data
         </button>
-        <button onclick="closeAdminPanel()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition">
+        <button onclick="closeAdminPanel()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl">
           Exit Admin
         </button>
       </div>
     </div>
 
-    <!-- Admin Settings: WhatsApp Number, Google Script URL, Password, Add Category -->
+    <!-- Global Settings (Syncs across ALL phones!) -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
-        <h3 class="text-sm font-bold text-blue-950 border-b pb-2">System Configuration (සැකසුම්)</h3>
+        <h3 class="text-sm font-bold text-blue-950 border-b pb-2">Global Settings (සියලු දුරකථන සඳහා බලපාන සැකසුම්)</h3>
         <div>
           <label class="block text-xs font-bold text-slate-600 mb-1">Target WhatsApp Number (947XXXXXXXX):</label>
           <div class="flex gap-2">
-            <input type="text" id="adminWhatsappInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" placeholder="94784693750" />
-            <button onclick="saveAdminSettings()" class="bg-blue-900 text-white text-xs font-bold px-4 py-2 rounded-xl">Save</button>
+            <input type="text" id="adminWhatsappInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" />
+            <button onclick="pushConfigToCloud()" class="bg-blue-900 text-white text-xs font-bold px-4 py-2 rounded-xl">Save to All</button>
           </div>
         </div>
         <div>
-          <label class="block text-xs font-bold text-slate-600 mb-1">5TB Google Drive Web App URL (Apps Script):</label>
-          <div class="flex gap-2">
-            <input type="text" id="adminScriptUrlInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" placeholder="https://script.google.com/macros/s/.../exec" />
-            <button onclick="saveAdminSettings()" class="bg-blue-900 text-white text-xs font-bold px-4 py-2 rounded-xl">Connect</button>
-          </div>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-600 mb-1">Change Admin Password (මුරපදය වෙනස් කිරීම):</label>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Change Admin Password (සියලු දුරකථන සඳහා මුරපදය):</label>
           <div class="flex gap-2">
             <input type="password" id="adminNewPassInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" placeholder="New Password" />
-            <button onclick="changeAdminPassword()" class="bg-amber-600 text-white text-xs font-bold px-4 py-2 rounded-xl">Update</button>
+            <button onclick="updateGlobalPassword()" class="bg-amber-600 text-white text-xs font-bold px-4 py-2 rounded-xl">Update</button>
           </div>
         </div>
       </div>
 
       <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
-        <h3 class="text-sm font-bold text-blue-950 border-b pb-2">Add New Investment Category (නව කාණ්ඩයක් එක් කිරීම)</h3>
+        <h3 class="text-sm font-bold text-blue-950 border-b pb-2">Manage Investment Categories (සියලු දුරකථනවල කාණ්ඩ වෙනස් කිරීම)</h3>
         <div class="flex gap-2">
-          <input type="text" id="newCategoryInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" placeholder="Ex: ලක්ෂ 200 ට වැඩි (Over 200 Lakhs)" />
-          <button onclick="addNewCategory()" class="bg-blue-900 text-white text-xs font-bold px-4 py-2 rounded-xl">+ Add Category</button>
+          <input type="text" id="newCategoryInput" class="flex-1 px-3 py-2 border rounded-xl text-sm" placeholder="Ex: ලක්ෂ 200 ට වැඩි" />
+          <button onclick="addGlobalCategory()" class="bg-blue-900 text-white text-xs font-bold px-4 py-2 rounded-xl">+ Add & Sync</button>
         </div>
         <div id="admin-categories-list" class="flex flex-wrap gap-1.5 pt-2"></div>
       </div>
     </div>
 
-    <!-- Grand Total & Category-wise Financial Summary -->
+    <!-- Grand Total & Category Breakdown -->
     <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
       <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3 mb-4">
-        <h3 class="text-base font-bold text-blue-950">කාණ්ඩ අනුව මුළු ආයෝජන සාරාංශය (Category-Wise Financial Summary)</h3>
+        <h3 class="text-base font-bold text-blue-950">කාණ්ඩ අනුව මුළු ආයෝජන සාරාංශය (Category Totals)</h3>
         <div class="bg-blue-950 text-amber-400 px-4 py-2 rounded-xl text-sm font-bold">
-          Grand Total Investment: <span id="admin-grand-total">LKR 0.00</span> (<span id="admin-total-agreements">0</span> Agreements)
+          Grand Total: <span id="admin-grand-total">LKR 0.00</span> (<span id="admin-total-agreements">0</span> Agreements)
         </div>
       </div>
-      <div id="category-summary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <!-- Category summary cards -->
-      </div>
+      <div id="category-summary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
     </div>
 
-    <!-- Survey Questions Summary -->
+    <!-- Survey Questions Count -->
     <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
-      <h3 class="text-base font-bold text-blue-950 border-b pb-3 mb-4">ප්‍රශ්නාවලියේ ප්‍රතිචාර සාරාංශය (20 Common Issues Count)</h3>
+      <h3 class="text-base font-bold text-blue-950 border-b pb-3 mb-4">ප්‍රශ්නාවලියේ ප්‍රතිචාර සාරාංශය (20 Common Issues)</h3>
       <div id="admin-questions-summary" class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs"></div>
     </div>
 
-    <!-- All Registered Investors Table -->
+    <!-- Registered Investors Table with Edit & Delete -->
     <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm overflow-x-auto">
-      <h3 class="text-base font-bold text-blue-950 border-b pb-3 mb-4">ලියාපදිංචි වූ සියලුම ආයෝජකයින් (Registered Investors List)</h3>
+      <h3 class="text-base font-bold text-blue-950 border-b pb-3 mb-4">ලියාපදිංචි වූ සියලුම ආයෝජකයින් (Edit / Delete Syncs to Google Drive)</h3>
       <table class="w-full text-left border-collapse text-xs">
         <thead>
           <tr class="bg-slate-100 text-slate-700 border-b">
@@ -240,6 +198,7 @@
             <th class="p-2.5 text-right">Amount (LKR)</th>
             <th class="p-2.5">Maturity</th>
             <th class="p-2.5">Drive PDF</th>
+            <th class="p-2.5 text-center">Actions</th>
           </tr>
         </thead>
         <tbody id="admin-investors-tbody" class="divide-y divide-slate-200"></tbody>
@@ -247,7 +206,7 @@
     </div>
   </section>
 
-  <!-- Password Modal for 5-Tap Admin Access -->
+  <!-- Password Modal -->
   <div id="password-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4">
       <h3 class="text-lg font-bold text-blue-950">Admin Authentication</h3>
@@ -260,11 +219,34 @@
     </div>
   </div>
 
-  <!-- Off-screen Clean A4 PDF Render Wrapper (Fixes PC top blank space & cropping) -->
+  <!-- Edit Record Modal -->
+  <div id="edit-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-3">
+      <h3 class="text-base font-bold text-blue-950 border-b pb-2">Edit Investor Record (Google Drive Update)</h3>
+      <input type="hidden" id="editRowIndex" />
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <div><label class="font-bold">Full Name</label><input type="text" id="editFullName" class="w-full p-2 border rounded-lg mt-1" /></div>
+        <div><label class="font-bold">Initials Name</label><input type="text" id="editInitialsName" class="w-full p-2 border rounded-lg mt-1" /></div>
+        <div><label class="font-bold">NIC</label><input type="text" id="editNic" class="w-full p-2 border rounded-lg mt-1" /></div>
+        <div><label class="font-bold">Phone</label><input type="text" id="editPhone" class="w-full p-2 border rounded-lg mt-1" /></div>
+        <div><label class="font-bold">Branch</label><input type="text" id="editBranch" class="w-full p-2 border rounded-lg mt-1" /></div>
+        <div><label class="font-bold">Category</label><select id="editCategory" class="w-full p-2 border rounded-lg mt-1"></select></div>
+        <div><label class="font-bold">Agreement No</label><input type="text" id="editAgNo" class="w-full p-2 border rounded-lg mt-1" /></div>
+        <div><label class="font-bold">Amount (LKR)</label><input type="number" id="editAmount" class="w-full p-2 border rounded-lg mt-1" /></div>
+        <div class="sm:col-span-2"><label class="font-bold">Maturity Date</label><input type="text" id="editMaturity" class="w-full p-2 border rounded-lg mt-1" /></div>
+      </div>
+      <div class="flex justify-end gap-2 pt-3 border-t">
+        <button onclick="document.getElementById('edit-modal').classList.add('hidden')" class="px-4 py-2 text-xs font-bold text-slate-600">Cancel</button>
+        <button onclick="saveEditedRecord()" class="bg-blue-900 text-white px-5 py-2 rounded-xl text-xs font-bold">Save Changes to Cloud</button>
+      </div>
+    </div>
+  </div>
+
   <div id="pdf-render-wrapper"></div>
 
   <script>
-    // Default Configuration & Data
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwb5hjz65p9YeQi55v4IgdTOeMpnNCgPvDHK_guwzqlPM9sBQjPTB-7QlbSref2XGf_zA/exec";
+
     const DEFAULT_CATEGORIES = [
       "ලක්ෂ 1 - 05 අතර (1 - 5 Lakhs)",
       "ලක්ෂ 5 - 10 අතර (5 - 10 Lakhs)",
@@ -298,25 +280,31 @@
       { id: 20, si: "සියලුම ආයෝජකයින්ගේ ඒකාබද්ධ දත්ත හරහා සාමූහික විසඳුමක් / නීතිමය පියවරක් අවශ්‍යද?", en: "Do you support collective resolution/legal action through unified investor data?" }
     ];
 
-    // State Management
-    let categories = JSON.parse(localStorage.getItem("php_categories")) || [...DEFAULT_CATEGORIES];
-    let records = JSON.parse(localStorage.getItem("php_records")) || [];
-    let settings = JSON.parse(localStorage.getItem("php_settings")) || {
-      whatsapp: "94784693750",
-      scriptUrl: "",
-      password: "suranga2026"
-    };
+    let categories = [...DEFAULT_CATEGORIES];
+    let records = [];
+    let globalConfig = { whatsapp: "94784693750", password: "suranga2026" };
 
-    // Initialize UI
-    function initApp() {
+    async function initApp() {
       renderCategoriesDropdown();
       addAgreementRow();
       renderQuestions();
       updateSummary();
 
-      // 5-Tap Header Listener
-      let tapCount = 0;
-      let tapTimer = null;
+      try {
+        const res = await fetch(`${GOOGLE_SCRIPT_URL}?mode=public`);
+        const data = await res.json();
+        if (data.status === "ok") {
+          if (Array.isArray(data.categories) && data.categories.length > 0) {
+            categories = data.categories;
+            renderCategoriesDropdown();
+            updateSummary();
+          }
+          if (data.whatsapp) globalConfig.whatsapp = data.whatsapp;
+          document.getElementById("sync-indicator").classList.remove("hidden");
+        }
+      } catch (e) { console.log("Syncing..."); }
+
+      let tapCount = 0, tapTimer = null;
       document.getElementById("app-header").addEventListener("click", () => {
         tapCount++;
         clearTimeout(tapTimer);
@@ -332,8 +320,9 @@
     }
 
     function renderCategoriesDropdown() {
-      const sel = document.getElementById("categorySelect");
-      sel.innerHTML = categories.map(c => `<option value="${c}">${c}</option>`).join("");
+      const html = categories.map(c => `<option value="${c}">${c}</option>`).join("");
+      document.getElementById("categorySelect").innerHTML = html;
+      document.getElementById("editCategory").innerHTML = html;
     }
 
     function addAgreementRow() {
@@ -344,15 +333,15 @@
       row.innerHTML = `
         <div class="md:col-span-4">
           <label class="block text-[11px] font-bold text-slate-600 mb-1">Agreement No (${index}) *</label>
-          <input type="text" class="ag-no w-full px-3 py-2 rounded-lg border border-slate-300 text-sm" placeholder="Ex: AG-10452" required />
+          <input type="text" class="ag-no w-full px-3 py-2 rounded-lg border border-slate-300 text-sm" placeholder="Ex: AG-10452" />
         </div>
         <div class="md:col-span-4">
           <label class="block text-[11px] font-bold text-slate-600 mb-1">Invested Amount (LKR) *</label>
-          <input type="number" oninput="updateSummary()" class="ag-amount w-full px-3 py-2 rounded-lg border border-slate-300 text-sm" placeholder="Ex: 500000" required />
+          <input type="number" oninput="updateSummary()" class="ag-amount w-full px-3 py-2 rounded-lg border border-slate-300 text-sm" placeholder="Ex: 500000" />
         </div>
         <div class="md:col-span-3">
           <label class="block text-[11px] font-bold text-slate-600 mb-1">Maturity Date *</label>
-          <input type="date" class="ag-maturity w-full px-3 py-2 rounded-lg border border-slate-300 text-sm" required />
+          <input type="date" class="ag-maturity w-full px-3 py-2 rounded-lg border border-slate-300 text-sm" />
         </div>
         <div class="md:col-span-1 text-right">
           ${index > 1 ? `<button type="button" onclick="this.closest('.agreement-row').remove(); updateSummary();" class="text-red-600 hover:bg-red-50 px-2.5 py-2 rounded-lg text-xs font-bold">✕</button>` : ''}
@@ -363,8 +352,7 @@
     }
 
     function renderQuestions() {
-      const container = document.getElementById("questions-container");
-      container.innerHTML = COMMON_QUESTIONS.map(q => `
+      document.getElementById("questions-container").innerHTML = COMMON_QUESTIONS.map(q => `
         <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-blue-50/50 cursor-pointer transition">
           <input type="checkbox" value="${q.id}" class="q-checkbox mt-1 w-4 h-4 accent-blue-900 rounded" />
           <div class="text-xs leading-relaxed">
@@ -380,7 +368,7 @@
       const total = amounts.reduce((a, b) => a + b, 0);
       document.getElementById("sum-count").textContent = amounts.length;
       document.getElementById("sum-amount").textContent = "LKR " + total.toLocaleString("en-US", { minimumFractionDigits: 2 });
-      document.getElementById("sum-category").textContent = document.getElementById("categorySelect").value;
+      document.getElementById("sum-category").textContent = document.getElementById("categorySelect").value || "-";
     }
 
     async function handleFormSubmit() {
@@ -393,7 +381,7 @@
       const customIssue = document.getElementById("customIssue").value.trim();
 
       if (!fullName || !initialsName || !nic || !phone || !branch) {
-        alert("කරුණාකර සියලුම අත්‍යවශ්‍ය තොරතුරු (Full Name, Initials, NIC, Phone, Branch) ඇතුළත් කරන්න.");
+        alert("කරුණාකර සියලුම අත්‍යවශ්‍ය තොරතුරු ඇතුළත් කරන්න.");
         return;
       }
 
@@ -408,87 +396,49 @@
       });
 
       if (!validAg) {
-        alert("කරුණාකර සියලුම ගිවිසුම් අංක (Agreement No) සහ මුදල් ප්‍රමාණයන් (Amount) නිවැරදිව ඇතුළත් කරන්න.");
+        alert("කරුණාකර සියලුම ගිවිසුම් අංක සහ මුදල් ප්‍රමාණයන් නිවැරදිව ඇතුළත් කරන්න.");
         return;
       }
 
       const selectedQIds = Array.from(document.querySelectorAll(".q-checkbox:checked")).map(cb => Number(cb.value));
-      const selectedQuestionsText = selectedQIds.map(id => {
-        const q = COMMON_QUESTIONS.find(item => item.id === id);
-        return `Q${id}: ${q.en}`;
-      });
-
+      const selectedQuestionsText = selectedQIds.map(id => `Q${id}: ${COMMON_QUESTIONS.find(item => item.id === id).en}`);
       const refId = "PHP-" + new Date().getFullYear() + "-" + Math.floor(100000 + Math.random() * 900000);
       const dateStr = new Date().toISOString().split("T")[0];
       const totalAmount = agreements.reduce((sum, a) => sum + a.amount, 0);
 
       const recordObj = {
-        id: refId,
-        date: dateStr,
-        fullName,
-        initialsName,
-        nic,
-        phone,
-        branch,
-        category,
-        agreements,
-        totalAmount,
-        selectedQIds,
+        action: "submit", id: refId, date: dateStr, fullName, initialsName, nic, phone, branch, category,
+        agreements, totalAmount, selectedQIds,
         issuesSummary: selectedQuestionsText.join(" | ") || "None",
-        customIssue: customIssue || "None",
-        pdfUrl: "Local Copy"
+        customIssue: customIssue || "None"
       };
 
       const btn = document.getElementById("submitBtn");
       btn.disabled = true;
-      btn.textContent = "Generating English PDF & Saving...";
+      btn.textContent = "Generating PDF & Saving to Google Drive...";
 
-      // Generate Clean A4 English PDF
       const pdfBase64 = await generateIndividualEnglishPDF(recordObj);
 
-      // Save Locally
-      agreements.forEach(ag => {
-        records.push({
-          ...recordObj,
-          agNo: ag.agNo,
-          amount: ag.amount,
-          maturityDate: ag.maturityDate
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...recordObj, pdfBase64 })
         });
-      });
-      localStorage.setItem("php_records", JSON.stringify(records));
-
-      // Sync to 5TB Google Drive if Web App URL is configured
-      if (settings.scriptUrl) {
-        try {
-          await fetch(settings.scriptUrl, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...recordObj, pdfBase64 })
-          });
-        } catch (e) {
-          console.error("Drive sync error:", e);
-        }
-      }
+      } catch (e) { console.error("Drive error:", e); }
 
       btn.disabled = false;
-      btn.innerHTML = "<span>Submit, Download English PDF & Send WhatsApp</span>";
+      btn.textContent = "Submit, Download English PDF & Send WhatsApp";
 
-      // Prepare WhatsApp Summary Message
       const agLines = agreements.map((a, i) => `${i + 1}. AG: ${a.agNo} | LKR ${a.amount.toLocaleString()} | Mat: ${a.maturityDate}`).join("\n");
       const waText = `*POWER HANDS PLANTATION - INVESTOR REGISTRATION*\n` +
-        `Ref ID: ${refId}\n` +
-        `Full Name: ${fullName}\n` +
-        `Initials: ${initialsName}\n` +
-        `NIC: ${nic} | Phone: ${phone}\n` +
-        `Branch: ${branch}\n` +
-        `Category: ${category}\n` +
-        `*Agreements (${agreements.length}):*\n${agLines}\n` +
+        `Ref ID: ${refId}\nFull Name: ${fullName}\nInitials: ${initialsName}\nNIC: ${nic} | Phone: ${phone}\n` +
+        `Branch: ${branch}\nCategory: ${category}\n*Agreements (${agreements.length}):*\n${agLines}\n` +
         `*Total Invested: LKR ${totalAmount.toLocaleString()}*\n` +
-        `Selected Issues: ${selectedQIds.length > 0 ? selectedQIds.join(", ") : "None"}\n` +
-        `Other Remarks: ${customIssue || "None"}`;
+        `Issues: ${selectedQIds.length > 0 ? selectedQIds.join(", ") : "None"}\nRemarks: ${customIssue || "None"}`;
 
-      window.open(`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(waText)}`, "_blank");
+      window.open(`https://wa.me/${globalConfig.whatsapp}?text=${encodeURIComponent(waText)}`, "_blank");
     }
 
     async function generateIndividualEnglishPDF(rec) {
@@ -499,49 +449,29 @@
           <div style="border-bottom: 3px solid #1e3a8a; padding-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
             <div>
               <div style="font-size: 20px; font-weight: 800; color: #1e3a8a;">POWER HANDS PLANTATION (PVT) LTD</div>
-              <div style="font-size: 11px; font-weight: 700; color: #b45309; letter-spacing: 0.5px; margin-top: 2px;">INVESTOR AGREEMENT DETAILS & SURVEY REGISTRATION FORM</div>
+              <div style="font-size: 11px; font-weight: 700; color: #b45309; margin-top: 2px;">INVESTOR AGREEMENT DETAILS & SURVEY REGISTRATION FORM</div>
             </div>
             <div style="text-align: right; font-size: 11px; color: #334155;">
               <div><strong>Ref ID:</strong> ${rec.id}</div>
               <div><strong>Date:</strong> ${rec.date}</div>
             </div>
           </div>
-
           <div style="margin-top: 18px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a; margin-bottom: 10px; text-transform: uppercase;">1. Investor Personal Information</div>
+            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a; margin-bottom: 10px;">1. INVESTOR PERSONAL INFORMATION</div>
             <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
-              <tr>
-                <td style="padding: 4px 0; width: 32%; color: #475569;"><strong>Full Name:</strong></td>
-                <td style="padding: 4px 0;">${rec.fullName}</td>
-              </tr>
-              <tr>
-                <td style="padding: 4px 0; color: #475569;"><strong>Name with Initials:</strong></td>
-                <td style="padding: 4px 0;">${rec.initialsName}</td>
-              </tr>
-              <tr>
-                <td style="padding: 4px 0; color: #475569;"><strong>NIC Number:</strong></td>
-                <td style="padding: 4px 0;">${rec.nic}</td>
-              </tr>
-              <tr>
-                <td style="padding: 4px 0; color: #475569;"><strong>Contact / WhatsApp:</strong></td>
-                <td style="padding: 4px 0;">${rec.phone}</td>
-              </tr>
-              <tr>
-                <td style="padding: 4px 0; color: #475569;"><strong>Branch:</strong></td>
-                <td style="padding: 4px 0;">${rec.branch}</td>
-              </tr>
-              <tr>
-                <td style="padding: 4px 0; color: #475569;"><strong>Investment Group:</strong></td>
-                <td style="padding: 4px 0; font-weight: 700; color: #1e3a8a;">${rec.category}</td>
-              </tr>
+              <tr><td style="padding: 4px 0; width: 32%; color: #475569;"><strong>Full Name:</strong></td><td>${rec.fullName}</td></tr>
+              <tr><td style="padding: 4px 0; color: #475569;"><strong>Name with Initials:</strong></td><td>${rec.initialsName}</td></tr>
+              <tr><td style="padding: 4px 0; color: #475569;"><strong>NIC Number:</strong></td><td>${rec.nic}</td></tr>
+              <tr><td style="padding: 4px 0; color: #475569;"><strong>Contact / WhatsApp:</strong></td><td>${rec.phone}</td></tr>
+              <tr><td style="padding: 4px 0; color: #475569;"><strong>Branch:</strong></td><td>${rec.branch}</td></tr>
+              <tr><td style="padding: 4px 0; color: #475569;"><strong>Investment Group:</strong></td><td style="font-weight: 700; color: #1e3a8a;">${rec.category}</td></tr>
             </table>
           </div>
-
           <div style="margin-top: 16px;">
-            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a; margin-bottom: 8px; text-transform: uppercase;">2. Registered Agreement Details</div>
+            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a; margin-bottom: 8px;">2. REGISTERED AGREEMENT DETAILS</div>
             <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
               <thead>
-                <tr style="background: #1e3a8a; color: #ffffff;">
+                <tr style="background: #1e3a8a; color: #fff;">
                   <th style="padding: 8px; text-align: left; border: 1px solid #1e3a8a;">#</th>
                   <th style="padding: 8px; text-align: left; border: 1px solid #1e3a8a;">Agreement No</th>
                   <th style="padding: 8px; text-align: left; border: 1px solid #1e3a8a;">Branch</th>
@@ -566,30 +496,19 @@
               </tbody>
             </table>
           </div>
-
           <div style="margin-top: 16px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px;">
-            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a; margin-bottom: 6px; text-transform: uppercase;">3. Reported Survey Issues</div>
+            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a; margin-bottom: 6px;">3. REPORTED SURVEY ISSUES</div>
             <div style="font-size: 11px; color: #334155; line-height: 1.5;">
-              ${rec.selectedQIds.length > 0 ? rec.selectedQIds.map(id => {
-                const q = COMMON_QUESTIONS.find(item => item.id === id);
-                return `<div>• [Q${id}] ${q.en}</div>`;
-              }).join("") : "<div>No specific common issues ticked.</div>"}
+              ${rec.selectedQIds.length > 0 ? rec.selectedQIds.map(id => `<div>• [Q${id}] ${COMMON_QUESTIONS.find(item => item.id === id).en}</div>`).join("") : "<div>No specific common issues ticked.</div>"}
               ${rec.customIssue !== "None" ? `<div style="margin-top: 6px;"><strong>Additional Remarks:</strong> ${rec.customIssue}</div>` : ""}
             </div>
           </div>
-
-          <div style="margin-top: 16px; background: #fffbeb; border: 1px solid #f59e0b; border-radius: 6px; padding: 10px; font-size: 10.5px; color: #78350f;">
-            <strong>Declaration:</strong> I hereby certify that the above agreement details are true and accurate. Submission of this form does not waive any legal rights to claim overdue returns or invested capital.
-          </div>
-
           <div style="margin-top: 38px; display: flex; justify-content: space-between; font-size: 11px; color: #334155;">
             <div style="border-top: 1px dashed #64748b; width: 200px; text-align: center; padding-top: 4px;">Date</div>
             <div style="border-top: 1px dashed #64748b; width: 240px; text-align: center; padding-top: 4px;">Investor Signature</div>
           </div>
         </div>
       `;
-
-      const element = wrapper.firstElementChild;
       const opt = {
         margin: 0,
         filename: `${rec.initialsName.replace(/\s+/g, "_")}_${rec.id}.pdf`,
@@ -597,30 +516,33 @@
         html2canvas: { scale: 2, scrollY: 0, scrollX: 0, windowWidth: 794 },
         jsPDF: { unit: "px", format: [794, 1123], orientation: "portrait" }
       };
-
-      await html2pdf().set(opt).from(element).save();
-      const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("datauristring");
+      await html2pdf().set(opt).from(wrapper.firstElementChild).save();
+      const pdfBlob = await html2pdf().set(opt).from(wrapper.firstElementChild).outputPdf("datauristring");
       return pdfBlob.split(",")[1];
     }
 
-    // Admin Functions
-    function verifyAdminPassword() {
+    async function verifyAdminPassword() {
       const entered = document.getElementById("adminLoginPass").value;
-      if (entered === settings.password) {
+      try {
+        const res = await fetch(`${GOOGLE_SCRIPT_URL}?mode=admin`);
+        const data = await res.json();
+        if (data.status === "ok" && data.config) {
+          globalConfig = data.config;
+          categories = data.config.categories || categories;
+          records = data.records || [];
+        }
+      } catch (e) {}
+      if (entered === globalConfig.password) {
         document.getElementById("password-modal").classList.add("hidden");
         document.getElementById("adminLoginPass").value = "";
-        openAdminPanel();
+        document.getElementById("public-view").classList.add("hidden");
+        document.getElementById("admin-view").classList.remove("hidden");
+        document.getElementById("adminWhatsappInput").value = globalConfig.whatsapp;
+        renderCategoriesDropdown();
+        renderAdminDashboard();
       } else {
         alert("වැරදි මුරපදයකි! (Incorrect Password)");
       }
-    }
-
-    function openAdminPanel() {
-      document.getElementById("public-view").classList.add("hidden");
-      document.getElementById("admin-view").classList.remove("hidden");
-      document.getElementById("adminWhatsappInput").value = settings.whatsapp;
-      document.getElementById("adminScriptUrlInput").value = settings.scriptUrl;
-      renderAdminDashboard();
     }
 
     function closeAdminPanel() {
@@ -628,82 +550,135 @@
       document.getElementById("public-view").classList.remove("hidden");
     }
 
-    function saveAdminSettings() {
-      settings.whatsapp = document.getElementById("adminWhatsappInput").value.trim() || "94784693750";
-      settings.scriptUrl = document.getElementById("adminScriptUrlInput").value.trim();
-      localStorage.setItem("php_settings", JSON.stringify(settings));
-      alert("Settings Saved Successfully!");
-    }
-
-    function changeAdminPassword() {
-      const newPass = document.getElementById("adminNewPassInput").value.trim();
-      if (newPass.length < 4) {
-        alert("මුරපදය අවම වශයෙන් අක්ෂර 4ක් විය යුතුය.");
-        return;
+    async function fetchAdminCloudData() {
+      const res = await fetch(`${GOOGLE_SCRIPT_URL}?mode=admin`);
+      const data = await res.json();
+      if (data.status === "ok") {
+        globalConfig = data.config;
+        categories = data.config.categories;
+        records = data.records;
+        renderCategoriesDropdown();
+        renderAdminDashboard();
+        alert("සියලුම දත්ත Google Drive වෙතින් යාවත්කාලීන විය!");
       }
-      settings.password = newPass;
-      localStorage.setItem("php_settings", JSON.stringify(settings));
-      document.getElementById("adminNewPassInput").value = "";
-      alert("Admin Password Updated!");
     }
 
-    function addNewCategory() {
+    async function pushConfigToCloud() {
+      globalConfig.whatsapp = document.getElementById("adminWhatsappInput").value.trim() || "94784693750";
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "updateConfig", whatsapp: globalConfig.whatsapp, categories })
+      });
+      alert("WhatsApp අංකය සියලුම දුරකථන සඳහා යාවත්කාලීන විය!");
+    }
+
+    async function updateGlobalPassword() {
+      const newPass = document.getElementById("adminNewPassInput").value.trim();
+      if (newPass.length < 4) return alert("මුරපදය අවම වශයෙන් අක්ෂර 4ක් විය යුතුය.");
+      globalConfig.password = newPass;
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "updateConfig", password: newPass })
+      });
+      document.getElementById("adminNewPassInput").value = "";
+      alert("නව මුරපදය සියලුම දුරකථන සඳහා සුරැකිණි!");
+    }
+
+    async function addGlobalCategory() {
       const val = document.getElementById("newCategoryInput").value.trim();
       if (!val) return;
       categories.push(val);
-      localStorage.setItem("php_categories", JSON.stringify(categories));
       document.getElementById("newCategoryInput").value = "";
       renderCategoriesDropdown();
       renderAdminDashboard();
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "updateConfig", categories })
+      });
+      alert("නව කාණ්ඩය සියලුම දුරකථනවල පෝරමයට එක් විය!");
     }
 
-    async function syncFromGoogleDrive() {
-      if (!settings.scriptUrl) {
-        alert("කරුණාකර පළමුව 5TB Google Drive Web App URL එක ඇතුළත් කර Connect කරන්න.");
-        return;
-      }
-      try {
-        const res = await fetch(settings.scriptUrl);
-        const liveData = await res.json();
-        if (Array.isArray(liveData)) {
-          records = liveData;
-          localStorage.setItem("php_records", JSON.stringify(records));
-          renderAdminDashboard();
-          alert("5TB Google Drive වෙතින් සජීවී දත්ත යාවත්කාලීන විය!");
-        }
-      } catch (e) {
-        alert("දත්ත ලබා ගැනීමේදී දෝෂයක් ඇති විය. Web App URL එක පරීක්ෂා කරන්න.");
-      }
+    async function removeGlobalCategory(idx) {
+      if (!confirm("මෙම කාණ්ඩය ඉවත් කරන්නද?")) return;
+      categories.splice(idx, 1);
+      renderCategoriesDropdown();
+      renderAdminDashboard();
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "updateConfig", categories })
+      });
+    }
+
+    function openEditModal(idx) {
+      const r = records[idx];
+      document.getElementById("editRowIndex").value = r.rowIndex;
+      document.getElementById("editFullName").value = r.fullName;
+      document.getElementById("editInitialsName").value = r.initialsName;
+      document.getElementById("editNic").value = r.nic;
+      document.getElementById("editPhone").value = r.phone;
+      document.getElementById("editBranch").value = r.branch;
+      document.getElementById("editCategory").value = r.category;
+      document.getElementById("editAgNo").value = r.agNo;
+      document.getElementById("editAmount").value = r.amount;
+      document.getElementById("editMaturity").value = r.maturityDate;
+      document.getElementById("edit-modal").classList.remove("hidden");
+    }
+
+    async function saveEditedRecord() {
+      const payload = {
+        action: "editRecord",
+        rowIndex: document.getElementById("editRowIndex").value,
+        fullName: document.getElementById("editFullName").value.trim(),
+        initialsName: document.getElementById("editInitialsName").value.trim(),
+        nic: document.getElementById("editNic").value.trim(),
+        phone: document.getElementById("editPhone").value.trim(),
+        branch: document.getElementById("editBranch").value.trim(),
+        category: document.getElementById("editCategory").value,
+        agNo: document.getElementById("editAgNo").value.trim(),
+        amount: Number(document.getElementById("editAmount").value) || 0,
+        maturityDate: document.getElementById("editMaturity").value.trim()
+      };
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      document.getElementById("edit-modal").classList.add("hidden");
+      setTimeout(fetchAdminCloudData, 1200);
+    }
+
+    async function deleteCloudRecord(rowIndex) {
+      if (!confirm("මෙම වාර්තාව Google Drive Master Sheet එකෙන් මකා දමන්නද?")) return;
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "deleteRecord", rowIndex })
+      });
+      setTimeout(fetchAdminCloudData, 1200);
     }
 
     function renderAdminDashboard() {
-      // Categories badges
-      document.getElementById("admin-categories-list").innerHTML = categories.map(c =>
-        `<span class="bg-slate-100 border border-slate-300 px-2.5 py-1 rounded-lg text-[11px] font-semibold">${c}</span>`
+      document.getElementById("admin-categories-list").innerHTML = categories.map((c, idx) =>
+        `<span class="bg-slate-100 border border-slate-300 px-2.5 py-1 rounded-lg text-[11px] font-semibold flex items-center gap-1.5">
+          ${c} <button onclick="removeGlobalCategory(${idx})" class="text-red-600 font-bold">✕</button>
+        </span>`
       ).join("");
 
-      // Grand Total
       const grandTotal = records.reduce((s, r) => s + (Number(r.amount) || 0), 0);
       document.getElementById("admin-grand-total").textContent = "LKR " + grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2 });
       document.getElementById("admin-total-agreements").textContent = records.length;
 
-      // Category-wise breakdown
-      const catGrid = document.getElementById("category-summary-grid");
-      catGrid.innerHTML = categories.map(cat => {
+      document.getElementById("category-summary-grid").innerHTML = categories.map(cat => {
         const catItems = records.filter(r => r.category === cat);
         const catSum = catItems.reduce((s, r) => s + (Number(r.amount) || 0), 0);
         return `
           <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
             <div class="text-xs font-bold text-blue-950 truncate" title="${cat}">${cat}</div>
             <div class="text-lg font-extrabold text-slate-900 mt-1">LKR ${catSum.toLocaleString("en-US")}</div>
-            <div class="text-[11px] text-slate-500 mt-0.5">${catItems.length} Agreements Registered</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">${catItems.length} Agreements</div>
           </div>
         `;
       }).join("");
 
-      // Questions Summary
-      const qGrid = document.getElementById("admin-questions-summary");
-      qGrid.innerHTML = COMMON_QUESTIONS.map(q => {
+      document.getElementById("admin-questions-summary").innerHTML = COMMON_QUESTIONS.map(q => {
         const count = records.filter(r => Array.isArray(r.selectedQIds) && r.selectedQIds.includes(q.id)).length;
         return `
           <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border border-slate-200">
@@ -713,9 +688,7 @@
         `;
       }).join("");
 
-      // Investors Table
-      const tbody = document.getElementById("admin-investors-tbody");
-      tbody.innerHTML = records.map(r => `
+      document.getElementById("admin-investors-tbody").innerHTML = records.map((r, idx) => `
         <tr class="hover:bg-slate-50">
           <td class="p-2.5"><div>${r.date}</div><div class="font-bold text-blue-900">${r.id}</div></td>
           <td class="p-2.5"><div class="font-bold">${r.fullName}</div><div class="text-slate-500">${r.initialsName}</div></td>
@@ -726,105 +699,69 @@
           <td class="p-2.5 text-right font-bold">LKR ${(Number(r.amount) || 0).toLocaleString()}</td>
           <td class="p-2.5">${r.maturityDate}</td>
           <td class="p-2.5">${r.pdfUrl && r.pdfUrl.startsWith("http") ? `<a href="${r.pdfUrl}" target="_blank" class="text-blue-600 underline font-bold">Open PDF</a>` : "Saved"}</td>
+          <td class="p-2.5 text-center space-x-1">
+            <button onclick="openEditModal(${idx})" class="bg-amber-500 text-white px-2 py-1 rounded font-bold">Edit</button>
+            <button onclick="deleteCloudRecord(${r.rowIndex})" class="bg-red-600 text-white px-2 py-1 rounded font-bold">Del</button>
+          </td>
         </tr>
       `).join("");
     }
 
-    // Master PDF Export (Replaces CSV)
     async function downloadMasterPDF() {
       window.scrollTo(0, 0);
       const grandTotal = records.reduce((s, r) => s + (Number(r.amount) || 0), 0);
       const wrapper = document.getElementById("pdf-render-wrapper");
-
       const catSummaryRows = categories.map(cat => {
         const catItems = records.filter(r => r.category === cat);
         const catSum = catItems.reduce((s, r) => s + (Number(r.amount) || 0), 0);
-        return `
-          <tr>
-            <td style="padding: 6px 8px; border: 1px solid #cbd5e1;">${cat}</td>
-            <td style="padding: 6px 8px; border: 1px solid #cbd5e1; text-align: center;">${catItems.length}</td>
-            <td style="padding: 6px 8px; border: 1px solid #cbd5e1; text-align: right; font-weight: 700;">LKR ${catSum.toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
-          </tr>
-        `;
+        return `<tr><td style="padding:6px 8px;border:1px solid #cbd5e1;">${cat}</td><td style="padding:6px 8px;border:1px solid #cbd5e1;text-align:center;">${catItems.length}</td><td style="padding:6px 8px;border:1px solid #cbd5e1;text-align:right;font-weight:700;">LKR ${catSum.toLocaleString("en-US",{minimumFractionDigits:2})}</td></tr>`;
       }).join("");
 
       const investorRows = records.map((r, idx) => `
         <tr>
-          <td style="padding: 5px 6px; border: 1px solid #cbd5e1;">${idx + 1}</td>
-          <td style="padding: 5px 6px; border: 1px solid #cbd5e1;"><strong>${r.fullName}</strong><br/><span style="color:#475569;">NIC: ${r.nic} | Tel: ${r.phone}</span></td>
-          <td style="padding: 5px 6px; border: 1px solid #cbd5e1;">${r.branch}</td>
-          <td style="padding: 5px 6px; border: 1px solid #cbd5e1;">${r.category}</td>
-          <td style="padding: 5px 6px; border: 1px solid #cbd5e1; font-weight: 700;">${r.agNo}</td>
-          <td style="padding: 5px 6px; border: 1px solid #cbd5e1;">${r.maturityDate}</td>
-          <td style="padding: 5px 6px; border: 1px solid #cbd5e1; text-align: right; font-weight: 700;">${(Number(r.amount) || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
+          <td style="padding:5px 6px;border:1px solid #cbd5e1;">${idx + 1}</td>
+          <td style="padding:5px 6px;border:1px solid #cbd5e1;"><strong>${r.fullName}</strong><br/><span style="color:#475569;">NIC: ${r.nic} | Tel: ${r.phone}</span></td>
+          <td style="padding:5px 6px;border:1px solid #cbd5e1;">${r.branch}</td>
+          <td style="padding:5px 6px;border:1px solid #cbd5e1;">${r.category}</td>
+          <td style="padding:5px 6px;border:1px solid #cbd5e1;font-weight:700;">${r.agNo}</td>
+          <td style="padding:5px 6px;border:1px solid #cbd5e1;">${r.maturityDate}</td>
+          <td style="padding:5px 6px;border:1px solid #cbd5e1;text-align:right;font-weight:700;">${(Number(r.amount)||0).toLocaleString("en-US",{minimumFractionDigits:2})}</td>
         </tr>
       `).join("");
 
       wrapper.innerHTML = `
-        <div style="width: 794px; padding: 30px 36px; background: #fff; color: #0f172a; font-family: 'Inter', 'Noto Sans Sinhala', sans-serif; box-sizing: border-box;">
-          <div style="border-bottom: 3px solid #1e3a8a; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="width:794px;padding:30px 36px;background:#fff;color:#0f172a;font-family:'Inter','Noto Sans Sinhala',sans-serif;box-sizing:border-box;">
+          <div style="border-bottom:3px solid #1e3a8a;padding-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
             <div>
-              <div style="font-size: 18px; font-weight: 800; color: #1e3a8a;">POWER HANDS PLANTATION (PVT) LTD</div>
-              <div style="font-size: 11px; font-weight: 700; color: #b45309;">MASTER INVESTOR REGISTRATION & FINANCIAL SUMMARY REPORT</div>
+              <div style="font-size:18px;font-weight:800;color:#1e3a8a;">POWER HANDS PLANTATION (PVT) LTD</div>
+              <div style="font-size:11px;font-weight:700;color:#b45309;">MASTER INVESTOR REGISTRATION & FINANCIAL SUMMARY REPORT</div>
             </div>
-            <div style="text-align: right; font-size: 10px; color: #334155;">
-              <div><strong>Generated Date:</strong> ${new Date().toLocaleDateString()}</div>
+            <div style="text-align:right;font-size:10px;color:#334155;">
+              <div><strong>Date:</strong> ${new Date().toLocaleDateString()}</div>
               <div><strong>Total Agreements:</strong> ${records.length}</div>
             </div>
           </div>
-
-          <div style="margin-top: 14px;">
-            <div style="font-size: 11px; font-weight: 800; color: #1e3a8a; margin-bottom: 6px; text-transform: uppercase;">1. Category-Wise Financial Summary</div>
-            <table style="width: 100%; border-collapse: collapse; font-size: 10.5px;">
-              <thead>
-                <tr style="background: #1e3a8a; color: #fff;">
-                  <th style="padding: 6px 8px; text-align: left; border: 1px solid #1e3a8a;">Investment Category</th>
-                  <th style="padding: 6px 8px; text-align: center; border: 1px solid #1e3a8a;">Agreements</th>
-                  <th style="padding: 6px 8px; text-align: right; border: 1px solid #1e3a8a;">Total Amount (LKR)</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${catSummaryRows}
-                <tr style="background: #fef3c7; font-weight: 800; font-size: 11.5px;">
-                  <td style="padding: 7px 8px; border: 1px solid #cbd5e1;">GRAND TOTAL INVESTMENT</td>
-                  <td style="padding: 7px 8px; border: 1px solid #cbd5e1; text-align: center;">${records.length}</td>
-                  <td style="padding: 7px 8px; border: 1px solid #cbd5e1; text-align: right; color: #1e3a8a;">LKR ${grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
-                </tr>
-              </tbody>
+          <div style="margin-top:14px;">
+            <div style="font-size:11px;font-weight:800;color:#1e3a8a;margin-bottom:6px;">1. CATEGORY-WISE FINANCIAL SUMMARY</div>
+            <table style="width:100%;border-collapse:collapse;font-size:10.5px;">
+              <thead><tr style="background:#1e3a8a;color:#fff;"><th style="padding:6px 8px;text-align:left;border:1px solid #1e3a8a;">Investment Category</th><th style="padding:6px 8px;text-align:center;border:1px solid #1e3a8a;">Agreements</th><th style="padding:6px 8px;text-align:right;border:1px solid #1e3a8a;">Total Amount (LKR)</th></tr></thead>
+              <tbody>${catSummaryRows}<tr style="background:#fef3c7;font-weight:800;"><td style="padding:7px 8px;border:1px solid #cbd5e1;">GRAND TOTAL INVESTMENT</td><td style="padding:7px 8px;border:1px solid #cbd5e1;text-align:center;">${records.length}</td><td style="padding:7px 8px;border:1px solid #cbd5e1;text-align:right;color:#1e3a8a;">LKR ${grandTotal.toLocaleString("en-US",{minimumFractionDigits:2})}</td></tr></tbody>
             </table>
           </div>
-
-          <div style="margin-top: 18px;">
-            <div style="font-size: 11px; font-weight: 800; color: #1e3a8a; margin-bottom: 6px; text-transform: uppercase;">2. Complete Registered Investors & Agreements List</div>
-            <table style="width: 100%; border-collapse: collapse; font-size: 9.5px;">
-              <thead>
-                <tr style="background: #0f172a; color: #fff;">
-                  <th style="padding: 6px; border: 1px solid #0f172a;">#</th>
-                  <th style="padding: 6px; text-align: left; border: 1px solid #0f172a;">Investor Details</th>
-                  <th style="padding: 6px; text-align: left; border: 1px solid #0f172a;">Branch</th>
-                  <th style="padding: 6px; text-align: left; border: 1px solid #0f172a;">Category</th>
-                  <th style="padding: 6px; text-align: left; border: 1px solid #0f172a;">AG No</th>
-                  <th style="padding: 6px; text-align: left; border: 1px solid #0f172a;">Maturity</th>
-                  <th style="padding: 6px; text-align: right; border: 1px solid #0f172a;">Amount (LKR)</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${investorRows || `<tr><td colspan="7" style="padding: 10px; text-align: center;">No records found.</td></tr>`}
-              </tbody>
+          <div style="margin-top:18px;">
+            <div style="font-size:11px;font-weight:800;color:#1e3a8a;margin-bottom:6px;">2. REGISTERED INVESTORS & AGREEMENTS LIST</div>
+            <table style="width:100%;border-collapse:collapse;font-size:9.5px;">
+              <thead><tr style="background:#0f172a;color:#fff;"><th style="padding:6px;border:1px solid #0f172a;">#</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">Investor Details</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">Branch</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">Category</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">AG No</th><th style="padding:6px;text-align:left;border:1px solid #0f172a;">Maturity</th><th style="padding:6px;text-align:right;border:1px solid #0f172a;">Amount (LKR)</th></tr></thead>
+              <tbody>${investorRows}</tbody>
             </table>
           </div>
         </div>
       `;
-
-      const opt = {
-        margin: 10,
-        filename: `Power_Hands_Master_Investors_Report_${new Date().toISOString().split("T")[0]}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2, scrollY: 0, scrollX: 0, windowWidth: 794 },
+      await html2pdf().set({
+        margin: 10, filename: `Power_Hands_Master_Report_${new Date().toISOString().split("T")[0]}.pdf`,
+        image: { type: "jpeg", quality: 0.98 }, html2canvas: { scale: 2, scrollY: 0, scrollX: 0, windowWidth: 794 },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-      };
-
-      await html2pdf().set(opt).from(wrapper.firstElementChild).save();
+      }).from(wrapper.firstElementChild).save();
     }
 
     initApp();
