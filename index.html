@@ -44,7 +44,7 @@
     
     <!-- Top Compact Navigation Buttons (No Long Scrolling Needed) -->
     <div class="grid grid-cols-3 gap-2.5">
-      <button type="button" onclick="switchPublicTab('investor')" id="tab-btn-investor" class="pub-tab-btn bg-emerald-800 text-white border-2 border-emerald-900 rounded-2xl p-3 text-center shadow-sm transition">
+      <button type="button" onclick="switchPublicTab('investor')" id="tab-btn-investor" class="pub-tab-btn bg-emerald-800 text-white border-2 border-emerald-950 rounded-2xl p-3 text-center shadow-sm transition">
         <div class="text-xs font-extrabold text-amber-300">පියවර 01</div>
         <div class="text-xs sm:text-sm font-bold mt-0.5">ආයෝජක විස්තර</div>
         <div class="text-[10px] opacity-80 hidden sm:block">Investor Details</div>
@@ -182,7 +182,6 @@
 
     <!-- Admin Tab 1: Overall Grand Summary & Category Breakdown -->
     <div id="adm-sec-summary" class="space-y-4">
-      <!-- Dedicated Overall Summary Highlight Card -->
       <div class="bg-gradient-to-r from-emerald-900 to-green-800 text-white rounded-2xl p-5 shadow-md border border-emerald-600">
         <div class="text-xs font-bold uppercase tracking-wider text-amber-300 mb-3">
           සමස්ත ආයෝජක සහ මුදල් සාරාංශය (OVERALL SYSTEM GRAND SUMMARY)
@@ -203,7 +202,6 @@
         </div>
       </div>
 
-      <!-- Category-Wise Summary Grid -->
       <div class="bg-white rounded-2xl p-5 border border-emerald-200 shadow-sm">
         <h3 class="text-sm font-bold text-emerald-950 border-b border-emerald-100 pb-2.5 mb-3">කාණ්ඩ අනුව වෙන වෙනම මුදල් සාරාංශය (Category-Wise Breakdown)</h3>
         <div id="category-summary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
@@ -473,29 +471,38 @@
       const category = document.getElementById("categorySelect").value;
       const customIssue = document.getElementById("customIssue").value.trim();
 
-      if (!fullName || !initialsName || !nic || !phone || !branch) {
+      // පියවර 01 අනිවාර්ය පරීක්ෂාව
+      if (!fullName || !initialsName || !nic || phone.length < 9 || !branch) {
         switchPublicTab("investor");
-        alert("කරුණාකර පියවර 01 හි සියලුම අත්‍යවශ්‍ය තොරතුරු ඇතුළත් කරන්න.");
+        alert("⚠️ පියවර 01 සම්පූර්ණ නැත!\nකරුණාකර සම්පූර්ණ නම, මුලකුරු සමඟ නම, NIC අංකය, නිවැරදි දුරකථන අංකය සහ ශාඛාව ඇතුළත් කරන්න.");
         return;
       }
 
+      // පියවර 02 අනිවාර්ය පරීක්ෂාව (Maturity Date ඇතුළුව)
       const agreements = [];
       let validAg = true;
       document.querySelectorAll(".agreement-row").forEach(row => {
         const agNo = row.querySelector(".ag-no").value.trim();
         const amount = Number(row.querySelector(".ag-amount").value) || 0;
         const maturityDate = row.querySelector(".ag-maturity").value;
-        if (!agNo || amount <= 0) validAg = false;
-        agreements.push({ agNo, amount, maturityDate: maturityDate || "N/A" });
+        if (!agNo || amount <= 0 || !maturityDate) validAg = false;
+        agreements.push({ agNo, amount, maturityDate });
       });
 
       if (!validAg) {
         switchPublicTab("agreements");
-        alert("කරුණාකර පියවර 02 හි ගිවිසුම් අංක සහ මුදල් ප්‍රමාණයන් නිවැරදිව ඇතුළත් කරන්න.");
+        alert("⚠️ පියවර 02 සම්පූර්ණ නැත!\nකරුණාකර සියලුම ගිවිසුම්වල ගිවිසුම් අංකය, මුදල සහ කල් පිරෙන දිනය (Maturity Date) ඇතුළත් කරන්න.");
         return;
       }
 
+      // පියවර 03 අනිවාර්ය පරීක්ෂාව
       const selectedQIds = Array.from(document.querySelectorAll(".q-checkbox:checked")).map(cb => Number(cb.value));
+      if (selectedQIds.length === 0 && !customIssue) {
+        switchPublicTab("survey");
+        alert("⚠️ පියවර 03 සම්පූර්ණ නැත!\nකරුණාකර ඔබට බලපා ඇති ගැටළු වලට Tick (✓) කරන්න හෝ පහළ කොටුවේ ඔබගේ ගැටළුව සඳහන් කරන්න.");
+        return;
+      }
+
       const selectedQuestionsText = selectedQIds.map(id => `Q${id}: ${COMMON_QUESTIONS.find(item => item.id === id).en}`);
       const refId = "PHP-" + new Date().getFullYear() + "-" + Math.floor(100000 + Math.random() * 900000);
       const dateStr = new Date().toISOString().split("T")[0];
@@ -635,7 +642,6 @@
         document.getElementById("adminWhatsappInput").value = globalConfig.whatsapp;
         renderCategoriesDropdown();
         renderAdminDashboard();
-        // Auto-sync every 15 seconds while Admin Panel is open
         clearInterval(autoSyncTimer);
         autoSyncTimer = setInterval(() => fetchAdminCloudData(false), 15000);
       } else {
@@ -763,7 +769,6 @@
         </span>`
       ).join("");
 
-      // Calculate Unique Investors (by NIC), Total Agreements, and Grand Total LKR
       const uniqueNics = new Set(records.map(r => String(r.nic || "").trim().toUpperCase()).filter(Boolean));
       const grandTotal = records.reduce((s, r) => s + (Number(r.amount) || 0), 0);
 
